@@ -5,7 +5,7 @@ $file = "$env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
 StowFile $file (Get-Item ".\.config\terminal\ps_profile.ps1").FullName
 
-$file = "$env:APPDATA\Local\Microsoft\Windows Terminal\settings.json"
+$file = "$env:LOCALAPPDATA\Microsoft\Windows Terminal\settings.json"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
 StowFile $file (Get-Item ".\.config\terminal\settings.json").FullName
 
