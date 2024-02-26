@@ -35,6 +35,13 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 rm -r kubectl
 
+# Install pomo
+curl -L https://github.com/rwxrob/pomo/releases/latest/download/pomo-linux-amd64 -o /usr/local/bin/pomo
+chmod +x /usr/local/bin/pomo
+complete -C pomo pomo
+pomo init
+pomo var set interval ""
+
 # Configure
 export XDG_CONFIG_HOME="$HOME"/.config
 mkdir -p "$XDG_CONFIG_HOME"

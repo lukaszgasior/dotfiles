@@ -1,5 +1,7 @@
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
+export LANG=en_US.UTF-8
+
 source "$HOME"/.git-prompt.sh
 
 export GIT_PS1_SHOWDIRTYSTATE=1
