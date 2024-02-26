@@ -41,6 +41,8 @@ chmod +x /usr/local/bin/pomo
 complete -C pomo pomo
 pomo init
 pomo var set interval ""
+pomo var set prefix "🍅 "
+pomo var set prefixwarn "💢 "
 
 # Configure
 export XDG_CONFIG_HOME="$HOME"/.config
