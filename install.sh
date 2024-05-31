@@ -36,8 +36,8 @@ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 rm -r kubectl
 
 # Install pomo
-curl -L https://github.com/rwxrob/pomo/releases/latest/download/pomo-linux-amd64 -o /usr/local/bin/pomo
-chmod +x /usr/local/bin/pomo
+sudo curl -L https://github.com/rwxrob/pomo/releases/latest/download/pomo-linux-amd64 -o /usr/local/bin/pomo
+sudo chmod +x /usr/local/bin/pomo
 complete -C pomo pomo
 pomo init
 pomo var set interval ""
