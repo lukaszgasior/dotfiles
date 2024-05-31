@@ -13,3 +13,5 @@ export GIT_PS1_DESCRIBE_STYLE="branch"
 # export GIT_PS1_SHOWUPSTREAM="auto git"
 
 PROMPT_COMMAND='__git_ps1 "\[\e[33m\]\u\[\e[0m\]@\[\e[34m\]\h\[\e[0m\]:\[\e[35m\]\w\[\e[0m\]" " \n$ "'
+
+alias vim='nvim'
