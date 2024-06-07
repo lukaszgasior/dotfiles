@@ -54,3 +54,7 @@ function sudo() {
       start-process $args[0] -ArgumentList $args[1..$args.Length] -verb "runAs"
    }
 }
+
+function grep {
+  $input | out-string -stream | select-string $args
+}

@@ -26,3 +26,8 @@ StowFile $file (Get-Item ".\.config\home\.gitconfig").FullName
 $file = "$env:USERPROFILE\.gitattributes"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
 StowFile $file (Get-Item ".\.config\home\.gitattributes").FullName
+
+####    neovim     ####
+$folder = "$env:LOCALAPPDATA\nvim"
+Rename-Item $folder ($folder + "-bak") -ErrorAction SilentlyContinue
+StowFile $folder (Get-Item ".\nvim").FullName
