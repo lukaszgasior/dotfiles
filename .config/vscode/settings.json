@@ -36,6 +36,32 @@
     "dev.containers.mountWaylandSocket": false,
     "powershell.integratedConsole.showOnStartup": false,
     "workbench.tree.enableStickyScroll": true,
+    "workbench.activityBar.location": "hidden",
     "terminal.integrated.stickyScroll.enabled": true,
     "multiDiffEditor.experimental.enabled": true,
+    "cSpell.enableFiletypes": [
+        "powershell"
+    ],
+    "window.commandCenter": false,
+    "workbench.layoutControl.enabled": false,
+    "window.density.editorTabHeight": "compact",
+    "window.menuBarVisibility": "toggle",
+    "diffEditor.ignoreTrimWhitespace": true,
+    "cSpell.userWords": [
+        "appgw",
+        "argocd",
+        "autoscale",
+        "azcore",
+        "aztables",
+        "hclparse",
+        "Ipam",
+        "LASTEXITCODE",
+        "mmdc",
+        "powerline",
+        "tflog",
+        "tfswitch",
+        "Trivy",
+        "velero",
+        "vnet"
+    ]
 }
