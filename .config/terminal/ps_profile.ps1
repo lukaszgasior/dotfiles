@@ -23,6 +23,23 @@ Set-PSReadLineOption -PredictionViewStyle ListView
 # Aliases
 Set-Alias -Name vim -Value nvim
 
+function Get-OriginalPath {
+   param (
+      [string]$path
+)
+
+   $item = Get-Item $path
+   if ($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) {
+      return $item.LinkTarget
+   } else {
+      return $path
+   }
+}
+
+$originalProfilePath = Get-OriginalPath -path "$PSScriptRoot\Microsoft.PowerShell_profile.ps1"
+$originalLocation = Get-Item $originalProfilePath
+. "$($originalLocation.Directory)\tf_aliasses.ps1"
+
 # PoSh won't allow ${function:..} because of an invalid path error, so...
 ${function:Set-ParentLocation} = { Set-Location .. }; Set-Alias ".." Set-ParentLocation
 ${function:...} = { Set-Location ..\.. }
