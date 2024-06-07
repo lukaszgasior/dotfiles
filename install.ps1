@@ -1,10 +1,16 @@
 . ".\utils\functions.ps1"
 
-####    windows terminal  ####
+####    powershell profile  ####
 $file = "$env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
 StowFile $file (Get-Item ".\.config\terminal\ps_profile.ps1").FullName
 
+####    windows terminal installed  ####
+$file = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
+StowFile $file (Get-Item ".\.config\terminal\settings.json").FullName
+
+####    windows terminal portable  ####
 $file = "$env:LOCALAPPDATA\Microsoft\Windows Terminal\settings.json"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
 StowFile $file (Get-Item ".\.config\terminal\settings.json").FullName
