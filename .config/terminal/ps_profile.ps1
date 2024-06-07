@@ -39,6 +39,7 @@ function Get-OriginalPath {
 $originalProfilePath = Get-OriginalPath -path "$PSScriptRoot\Microsoft.PowerShell_profile.ps1"
 $originalLocation = Get-Item $originalProfilePath
 . "$($originalLocation.Directory)\tf_aliasses.ps1"
+. "$($originalLocation.Directory)\git_aliasses.ps1"
 
 # PoSh won't allow ${function:..} because of an invalid path error, so...
 ${function:Set-ParentLocation} = { Set-Location .. }; Set-Alias ".." Set-ParentLocation
