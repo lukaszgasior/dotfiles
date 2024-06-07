@@ -13,16 +13,6 @@ foreach ( $module_name in $modules ) {
    }
 }
 
-# Configure on-my-posh
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\half-life.omp.json" | Invoke-Expression
-
-# PSReadLine config
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -PredictionViewStyle ListView
-
-# Aliases
-Set-Alias -Name vim -Value nvim
-
 function Get-OriginalPath {
    param (
       [string]$path
@@ -38,6 +28,17 @@ function Get-OriginalPath {
 
 $originalProfilePath = Get-OriginalPath -path "$PSScriptRoot\Microsoft.PowerShell_profile.ps1"
 $originalLocation = Get-Item $originalProfilePath
+
+# Configure on-my-posh
+oh-my-posh init pwsh --config "$($originalLocation.Directory)\half-life.omp.json" | Invoke-Expression
+
+# PSReadLine config
+Set-PSReadLineOption -PredictionSource History
+Set-PSReadLineOption -PredictionViewStyle ListView
+
+# Aliases
+Set-Alias -Name vim -Value nvim
+
 . "$($originalLocation.Directory)\tf_aliasses.ps1"
 . "$($originalLocation.Directory)\git_aliasses.ps1"
 
