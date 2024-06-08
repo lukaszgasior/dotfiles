@@ -47,6 +47,12 @@
     "window.density.editorTabHeight": "compact",
     "window.menuBarVisibility": "toggle",
     "diffEditor.ignoreTrimWhitespace": true,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": false,
+    "vim.hlsearch": true,
+    "cSpell.allowCompoundWords": true,
     "cSpell.userWords": [
         "appgw",
         "argocd",
