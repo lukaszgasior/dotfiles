@@ -1,36 +1,12 @@
-# set PowerShell to UTF-8
-[console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
-
-# Install modules
-$modules = @('posh-git', 'Terminal-Icons', 'ZLocation')
-
-foreach ( $module_name in $modules ) {
-   if (-not (Get-Module $module_name -ListAvailable)) {
-      Install-Module $module_name -Scope CurrentUser -Force
-   }
-   else {
-      Import-Module $module_name
-   }
+if ($PSStyle) {
+   $PSStyle.FileInfo.Directory = $PSStyle.FileInfo.Executable = $PSStyle.FileInfo.SymbolicLink = "`e[38;2;255;255;255m" 
+   $PSStyle.FileInfo.Extension.Clear()
+   $PSStyle.Formatting.TableHeader = ""
+   $PSStyle.Formatting.FormatAccent = ""
 }
 
-function Get-OriginalPath {
-   param (
-      [string]$path
-)
-
-   $item = Get-Item $path
-   if ($item.Attributes -band [System.IO.FileAttributes]::ReparsePoint) {
-      return $item.LinkTarget
-   } else {
-      return $path
-   }
-}
-
-$originalProfilePath = Get-OriginalPath -path "$PSScriptRoot\Microsoft.PowerShell_profile.ps1"
-$originalLocation = Get-Item $originalProfilePath
-
-# Configure on-my-posh
-oh-my-posh init pwsh --config "$($originalLocation.Directory)\half-life.omp.json" | Invoke-Expression
+# configure starship
+Invoke-Expression (&starship init powershell)
 
 # PSReadLine config
 Set-PSReadLineOption -PredictionSource History
@@ -39,15 +15,8 @@ Set-PSReadLineOption -PredictionViewStyle ListView
 # Aliases
 Set-Alias -Name vim -Value nvim
 
-. "$($originalLocation.Directory)\tf_aliasses.ps1"
-. "$($originalLocation.Directory)\git_aliasses.ps1"
-
-# PoSh won't allow ${function:..} because of an invalid path error, so...
-${function:Set-ParentLocation} = { Set-Location .. }; Set-Alias ".." Set-ParentLocation
-${function:...} = { Set-Location ..\.. }
-${function:....} = { Set-Location ..\..\.. }
-${function:.....} = { Set-Location ..\..\..\.. }
-${function:......} = { Set-Location ..\..\..\..\.. }
+. "$($env:DOTFILES)\.config\terminal\tf_aliasses.ps1"
+. "$($env:DOTFILES)\.config\terminal\git_aliasses.ps1"
 
 # Custom functions
 function take {
@@ -75,5 +44,5 @@ function sudo() {
 }
 
 function grep {
-  $input | out-string -stream | select-string $args
+   $input | out-string -stream | select-string $args
 }

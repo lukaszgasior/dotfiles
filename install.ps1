@@ -15,6 +15,16 @@ $file = "$env:LOCALAPPDATA\Microsoft\Windows Terminal\settings.json"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
 StowFile $file (Get-Item ".\.config\terminal\settings.json").FullName
 
+####    alacritty  ####
+$file = "$env:APPDATA\alacritty\alacritty.toml"
+Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
+StowFile $file (Get-Item ".\.config\alacritty\alacritty.toml").FullName
+
+####    starship  ####
+$file = "$env:USERPROFILE\.config\starship.toml"
+Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
+StowFile $file (Get-Item ".\.config\starship\starship.toml").FullName
+
 ####    vscode  ####
 $file = "$env:APPDATA\Code\User\settings.json"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue

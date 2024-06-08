@@ -42,6 +42,9 @@
 				},
 				{
 					"PackageIdentifier": "Alacritty.Alacritty"
+				},
+				{
+					"PackageIdentifier": "Starship.Starship"
 				}
 			],
 			"SourceDetails": {
