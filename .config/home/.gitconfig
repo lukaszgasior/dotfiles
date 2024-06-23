@@ -61,3 +61,5 @@
     changed = green
     untracked = cyan
     branch = magenta
+[push]
+	autoSetupRemote = true

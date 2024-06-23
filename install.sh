@@ -54,6 +54,8 @@ curl -L https://raw.githubusercontent.com/git/git/master/contrib/completion/git-
 # config links
 ln -sf "$PWD/.config-linux/.bashrc" "$HOME"/.bashrc
 ln -sf "$PWD/.config-linux/.tmux.conf" "$HOME"/.tmux.conf
+ln -sf "$PWD/.config/home/.gitconfig" "$HOME"/.gitconfig
+ln -sf "$PWD/.config/home/.gitattributes" "$HOME"/.gitattributes
 ln -sf "$PWD/nvim" "$XDG_CONFIG_HOME"/nvim
 
 # fix issue with unicode support in nvim in tmux
