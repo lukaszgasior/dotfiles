@@ -23,9 +23,6 @@
 					"PackageIdentifier": "Mozilla.Firefox"
 				},
 				{
-					"PackageIdentifier": "JanDeDobbeleer.OhMyPosh"
-				},
-				{
 					"PackageIdentifier": "WinDirStat.WinDirStat"
 				},
 				{
@@ -45,6 +42,12 @@
 				},
 				{
 					"PackageIdentifier": "Starship.Starship"
+				},
+				{
+					"PackageIdentifier": "Bruno.Bruno"
+				},
+				{
+					"PackageIdentifier": "Microsoft.PowerShell"
 				}
 			],
 			"SourceDetails": {
