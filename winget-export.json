@@ -11,6 +11,9 @@
 					"PackageIdentifier": "BurntSushi.ripgrep.GNU"
 				},
 				{
+					"PackageIdentifier": "junegunn.fzf"
+				},
+				{
 					"PackageIdentifier": "Git.Git"
 				},
 				{

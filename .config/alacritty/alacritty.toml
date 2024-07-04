@@ -3,7 +3,7 @@ title = "Alacritty"
 dynamic_title = false
 padding = { x = 10, y = 10 }
 
-# decorations = "None"
+decorations = "None"
 
 opacity = 1
 
