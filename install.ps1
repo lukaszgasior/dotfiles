@@ -47,3 +47,8 @@ StowFile $file (Get-Item ".\.config\home\.gitattributes").FullName
 $folder = "$env:LOCALAPPDATA\nvim"
 Rename-Item $folder ($folder + "-bak") -ErrorAction SilentlyContinue
 StowFile $folder (Get-Item ".\nvim").FullName
+
+####    glazewm  ####
+$file = "$env:USERPROFILE\.glaze-wm\config.yaml"
+Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
+StowFile $file (Get-Item ".\glazwm\config.yaml").FullName
