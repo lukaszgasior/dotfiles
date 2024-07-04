@@ -17,7 +17,6 @@ Set-Alias -Name vim -Value nvim
 
 function dotfiles { Set-Location "C:\tools\dotfiles\" }
 
-
 . "$($env:DOTFILES)\.config\terminal\tf_aliasses.ps1"
 . "$($env:DOTFILES)\.config\terminal\git_aliasses.ps1"
 

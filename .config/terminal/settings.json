@@ -29,6 +29,7 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+    "launchMode": "focus",
     "newTabMenu": [
         {
             "type": "remainingProfiles"
@@ -36,8 +37,8 @@
     ],
     "profiles": {
         "defaults": {
-            "backgroundImage": "C:\\tools\\deer-artwork-silhouette.png",
-            "backgroundImageOpacity": 0.13,
+            // "backgroundImage": "C:\\tools\\deer-artwork-silhouette.png",
+            // "backgroundImageOpacity": 0.13,
             "bellStyle": "window",
             "closeOnExit": "always",
             "colorScheme": "Gruvbox",
@@ -49,7 +50,8 @@
             },
             "scrollbarState": "hidden",
             "suppressApplicationTitle": false,
-            "useAcrylic": false
+            "useAcrylic": false,
+            "opacity": 90
         },
         "list": [
             {

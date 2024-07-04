@@ -4,6 +4,14 @@ vim.cmd('set expandtab')
 vim.cmd('set smartindent')
 vim.cmd('set termguicolors')
 
+vim.cmd([[
+augroup TransparentBackground
+autocmd!
+autocmd ColorScheme * highlight Normal ctermbg=none guibg=none
+autocmd ColorScheme * highlight NonText ctermbg=none guibg=none
+augroup END
+]])
+
 vim.cmd('colorscheme retrobox')
 
 local options = {
