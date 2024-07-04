@@ -158,7 +158,7 @@ window_rules:
     match_process_name: "steam"
 
   - command: "move to workspace 1"
-    match_process_name: "edge"
+    match_process_name: "msedge"
 
   - command: "move to workspace 2"
     match_process_name: "Code"
