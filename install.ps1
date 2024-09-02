@@ -48,7 +48,11 @@ $folder = "$env:LOCALAPPDATA\nvim"
 Rename-Item $folder ($folder + "-bak") -ErrorAction SilentlyContinue
 StowFile $folder (Get-Item ".\nvim").FullName
 
-####    glazewm  ####
-$file = "$env:USERPROFILE\.glaze-wm\config.yaml"
+####    glazewm v3  ####
+$file = "$env:USERPROFILE\.glzr\glazewm\config.yaml"
 Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
-StowFile $file (Get-Item ".\glazwm\config.yaml").FullName
+StowFile $file (Get-Item ".\glazwm\glazewm_v3.yaml").FullName
+
+$file = "$env:USERPROFILE\.glzr\zebar\config.yaml"
+Rename-Item $file ($file + ".bak") -ErrorAction SilentlyContinue
+StowFile $file (Get-Item ".\glazwm\zebar.yaml").FullName
