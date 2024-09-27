@@ -51,6 +51,9 @@
 				},
 				{
 					"PackageIdentifier": "Microsoft.PowerShell"
+				},
+				{
+					"PackageIdentifier": "JGraph.Draw"
 				}
 			],
 			"SourceDetails": {
