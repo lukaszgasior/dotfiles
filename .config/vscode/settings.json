@@ -17,14 +17,15 @@
   "editor.suggest.showStatusBar": true,
   "editor.suggest.insertMode": "insert",
   "git.autofetch": true,
-  "workbench.colorTheme": "Gruvbox Dark Hard",
   "workbench.iconTheme": "material-icon-theme",
   "python.languageServer": "Pylance",
   "python.analysis.typeCheckingMode": "basic",
   "python.analysis.inlayHints.functionReturnTypes": true,
   "python.analysis.inlayHints.variableTypes": false,
   "security.workspace.trust.untrustedFiles": "open",
-  "indentRainbow.excludedLanguages": ["terraform"],
+  "indentRainbow.excludedLanguages": [
+    "terraform"
+  ],
   "terraform.codelens.referenceCount": true,
   "bicep.enableSurveys": false,
   "gitlens.plusFeatures.enabled": false,
@@ -37,7 +38,9 @@
   "workbench.activityBar.location": "hidden",
   "terminal.integrated.stickyScroll.enabled": true,
   "multiDiffEditor.experimental.enabled": true,
-  "cSpell.enableFiletypes": ["powershell"],
+  "cSpell.enableFiletypes": [
+    "powershell"
+  ],
   "window.commandCenter": false,
   "workbench.layoutControl.enabled": false,
   "window.density.editorTabHeight": "compact",
@@ -64,6 +67,20 @@
     "tfswitch",
     "Trivy",
     "velero",
-    "vnet"
-  ]
+    "vnet",
+    "glassit"
+  ],
+  "glassit.alpha": 230,
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": false,
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": "explicit"
+    }
+  },
+  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "files.trimTrailingWhitespace": true,
+  "breadcrumbs.enabled": false,
+  "editor.mouseWheelZoom": true,
+  "terminal.integrated.mouseWheelZoom": true
 }
