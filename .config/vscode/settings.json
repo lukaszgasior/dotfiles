@@ -16,7 +16,6 @@
   },
   "editor.suggest.showStatusBar": true,
   "editor.suggest.insertMode": "insert",
-  "git.autofetch": true,
   "workbench.iconTheme": "material-icon-theme",
   "python.languageServer": "Pylance",
   "python.analysis.typeCheckingMode": "basic",
