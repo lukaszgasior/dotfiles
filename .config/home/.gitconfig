@@ -1,6 +1,11 @@
 [user]
 	name = Lukasz Gasior
-	email = 
 
 [push]
 	autoSetupRemote = true
+
+[status]
+	showUntrackedFiles = all
+
+[include]
+	path = ~/.gitconfig.local
