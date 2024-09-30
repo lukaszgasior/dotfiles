@@ -12,8 +12,21 @@ Invoke-Expression (&starship init powershell)
 Set-PSReadLineOption -PredictionSource History
 Set-PSReadLineOption -PredictionViewStyle ListView
 
+Set-PSReadLineOption -AddToHistoryHandler {
+   param($line)
+   if ($line.StartsWith(' ')) {
+      return $false
+   }
+   return $true
+}
+
 # Aliases
 Set-Alias -Name vim -Value nvim
+Set-Alias -Name k -Value kubectl
+
+# kubectl completion
+kubectl completion powershell | Out-String | Invoke-Expression
+Register-ArgumentCompleter -CommandName k -ScriptBlock $__kubectlCompleterBlock
 
 function dotfiles { Set-Location "C:\tools\dotfiles\" }
 
