@@ -16,6 +16,16 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 export PATH="$PATH:/opt/nvim-linux64/bin"
 export PATH="$PATH:/usr/local/go/bin"
+export PATH="$PATH:$HOME/go/bin"
+export PATH="$PATH:$HOME/bin"
 export KUBECONFIG=~/.kube/config
 
 alias vim='nvim'
+alias ssh='ssh.exe'
+alias ssh-add='ssh-add.exe'
+
+source <(kubectl completion bash)
+alias k=kubectl
+complete -o default -F __start_kubectl k
+
+set -o vi
