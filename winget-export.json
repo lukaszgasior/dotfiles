@@ -41,9 +41,6 @@
 					"PackageIdentifier": "Microsoft.WindowsTerminal"
 				},
 				{
-					"PackageIdentifier": "Alacritty.Alacritty"
-				},
-				{
 					"PackageIdentifier": "Starship.Starship"
 				},
 				{
