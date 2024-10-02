@@ -1,18 +1,11 @@
-echo "BASHRC"
-
-
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
       *) return;;
 esac
 
-echo "BASHRC 2"
-
 # keybinds
 bind -x '"\C-l":clear'
-
-echo "BASHRC 3"
 
 # start or attach to tmux
 if command -v tmux > /dev/null 2>&1; then
