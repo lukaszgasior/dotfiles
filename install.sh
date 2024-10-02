@@ -8,7 +8,7 @@ fi
 sudo apt-get update && sudo apt-get install ca-certificates curl build-essential --yes && update-ca-certificates
 
 # Install tools
-sudo apt-get install git ripgrep fzf tmux --yes
+sudo apt-get install git ripgrep tmux --yes
 
 # Install neovim
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
