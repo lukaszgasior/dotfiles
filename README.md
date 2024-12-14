@@ -1,23 +1,26 @@
-dotfiles for windows
+# Dotfiles
 
-- Windows Terminal (portable)
-- vscode
-- git config
-- miscellaneous PS scripts
+My personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
-## WSL2
-```
-cd
-git clone
-cd dotfiles
-bash install.sh
-source ~/.bashrc
+## Quick Install
+
+On Windows, run in PowerShell:
+```powershell
+irm https://raw.githubusercontent.com/lukaszgasior/dotfiles/main/install.ps1 | iex -ExecutionPolicy Bypass
 ```
 
-## Docker/Podman image
+This will:
+1. Install Git if not present
+2. Install chezmoi if not present
+3. Initialize and apply dotfiles configuration
 
-* to build custom image, run this command from root folder of this repo:
-`podman build -t mycustomeimage -f .\docker\Dockerfile .`
+## What's Inside
 
-* to run custom image run:
-`podman run -it --hostname=work --name=work -v shared:/projects mycustomeimage`
+- Windows package installation via winget (packages listed in `.chezmoidata/winget-export.json`)
+- install fonts
+- PowerShell
+- Git
+- vscode plugins and configuration
+- windows terminal
+- starship prompt
+- GlazeWM and Zebar

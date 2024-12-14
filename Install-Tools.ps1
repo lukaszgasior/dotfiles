@@ -1,1 +1,0 @@
-winget import -i .\winget-export.json --accept-package-agreements

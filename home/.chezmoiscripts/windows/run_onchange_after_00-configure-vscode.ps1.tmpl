@@ -1,0 +1,36 @@
+{{ $extensions := list
+     "akmittal.hugofy"
+     "eamodio.gitlens"
+     "golang.go"
+     "hashicorp.hcl"
+     "hashicorp.terraform"
+     "jdinhlife.gruvbox"
+     "kevinrose.vsc-python-indent"
+     "mechatroner.rainbow-csv"
+     "ms-azure-devops.azure-pipelines"
+     "ms-azuretools.vscode-azureappservice"
+     "ms-azuretools.vscode-azurefunctions"
+     "ms-azuretools.vscode-azureresourcegroups"
+     "ms-azuretools.vscode-azureterraform"
+     "ms-dotnettools.vscode-dotnet-runtime"
+     "ms-python.debugpy"
+     "ms-python.isort"
+     "ms-python.python"
+     "ms-python.vscode-pylance"
+     "ms-vscode-remote.remote-ssh"
+     "ms-vscode-remote.remote-ssh-edit"
+     "ms-vscode.azure-account"
+     "ms-vscode.powershell"
+     "ms-vscode.remote-explorer"
+     "msazurermtools.azurerm-vscode-tools"
+     "oderwat.indent-rainbow"
+     "pkief.material-icon-theme"
+     "redhat.ansible"
+     "redhat.vscode-yaml"
+     "streetsidesoftware.code-spell-checker"
+     "tamasfe.even-better-toml"
+     "vscodevim.vim" -}}
+
+{{ range $extensions -}}
+code --force --install-extension {{ . }}
+{{ end -}}

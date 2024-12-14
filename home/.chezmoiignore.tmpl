@@ -1,0 +1,13 @@
+{{ if ne .chezmoi.os "windows" }}
+.chezmoiscripts/windows/**
+AppData/**
+Documents/**
+dot_glzr/**
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+.chezmoiscripts/linux/**
+dot_bashrc
+dot_bash_profile
+dot_tmux.conf
+{{ end }}

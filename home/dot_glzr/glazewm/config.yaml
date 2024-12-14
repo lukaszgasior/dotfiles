@@ -1,7 +1,8 @@
 general:
   # Commands to run when the WM has started (e.g. to run a script or launch
   # another application). Here we are running a batch script to start Zebar.
-  startup_commands: ["shell-exec %userprofile%/.glzr/zebar/start.bat"]
+  # startup_commands: ["shell-exec %userprofile%/.glzr/zebar/start.bat"]
+  startup_commands: ["shell-exec zebar"]
 
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false
@@ -93,9 +94,12 @@ window_rules:
       - window_class: { regex: "#32770" }
 
       # Ignore rules for various 3rd-party apps.
-      - window_process: { equals: "PowerToys.PowerAccent" }
+      - window_process: { equals: "PowerToys" }
+        window_class: { regex: 'HwndWrapper\[PowerToys\.PowerAccent.*?\]' }
+      - window_process: { equals: "PowerToys" }
+        window_title: { regex: ".*? - Peek" }
       - window_process: { equals: "Lively" }
-        window_class: { regex: "HwndWrapper*" }
+        window_class: { regex: "HwndWrapper" }
 
   - commands: ["move --workspace 1"]
     match:
