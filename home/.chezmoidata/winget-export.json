@@ -51,6 +51,12 @@
 				},
 				{
 					"PackageIdentifier": "JGraph.Draw"
+				},
+				{
+					"PackageIdentifier": "GlazeWM"
+				},
+				{
+					"PackageIdentifier": "Microsoft.PowerToys"
 				}
 			],
 			"SourceDetails": {
