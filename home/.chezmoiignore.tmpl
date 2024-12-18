@@ -2,12 +2,12 @@
 .chezmoiscripts/windows/**
 AppData/**
 Documents/**
-dot_glzr/**
+.glzr/**
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
 .chezmoiscripts/linux/**
-dot_bashrc
-dot_bash_profile
-dot_tmux.conf
+.bashrc
+.bash_profile
+.tmux.conf
 {{ end }}

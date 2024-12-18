@@ -6,7 +6,7 @@ My personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
 On Windows, run in PowerShell:
 ```powershell
-irm https://raw.githubusercontent.com/lukaszgasior/dotfiles/main/install.ps1 | iex -ExecutionPolicy Bypass
+irm https://raw.githubusercontent.com/lukaszgasior/dotfiles/main/install.ps1 | iex
 ```
 
 This will:
