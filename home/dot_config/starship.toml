@@ -58,7 +58,8 @@ format = '[[ $symbol( $version) ](fg:color_fg0)]($style)'
 
 [python]
 symbol = ""
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)[[( ${virtualenv} )](fg:color_blue)]($style)'
+style = "yellow bold"
 
 [terraform]
 symbol = "󱁢"
