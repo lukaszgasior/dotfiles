@@ -3,3 +3,8 @@
 [data]
     name = "Lukasz Gasior"
     email = {{ $email | quote }}
+
+{{ if eq .chezmoi.os "windows" }}
+[cd]
+    command = "pwsh"
+{{ end }}
