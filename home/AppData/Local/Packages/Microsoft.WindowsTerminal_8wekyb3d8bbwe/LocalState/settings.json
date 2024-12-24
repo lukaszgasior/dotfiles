@@ -28,6 +28,10 @@
             },
             "id": "User.splitPane",
             "keys": "alt+shift+d"
+        },
+        {
+            "command": "toggleFocusMode",
+            "keys": "ctrl+shift+f"
         }
     ],
     "copyFormatting": "none",
