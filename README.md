@@ -9,6 +9,11 @@ On Windows, run in PowerShell:
 irm https://raw.githubusercontent.com/lukaszgasior/dotfiles/main/install.ps1 | iex
 ```
 
+On Linux(ubuntu), run in bash:
+```powershell
+curl -fsSL https://raw.githubusercontent.com/lukaszgasior/dotfiles/main/install.sh | bash
+```
+
 This will:
 1. Install Git if not present
 2. Install chezmoi if not present
