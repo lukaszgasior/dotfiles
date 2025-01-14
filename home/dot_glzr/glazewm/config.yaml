@@ -2,7 +2,9 @@ general:
   # Commands to run when the WM has started (e.g. to run a script or launch
   # another application). Here we are running a batch script to start Zebar.
   # startup_commands: ["shell-exec %userprofile%/.glzr/zebar/start.bat"]
-  startup_commands: ["shell-exec zebar"]
+  startup_commands:
+    - "shell-exec zebar"
+    - "shell-exec %userprofile%/.local/share/chezmoi/azure-status-proxy/azure-status-proxy.exe"
 
   # Whether to automatically focus windows underneath the cursor.
   focus_follows_cursor: false
@@ -191,12 +193,12 @@ keybindings:
     bindings: ["alt+v"]
 
   # Change focus from tiling windows -> floating -> fullscreen.
-  - commands: ["wm-cycle-focus"]
-    bindings: ["alt+space"]
+  # - commands: ["wm-cycle-focus"]
+  #   bindings: ["alt+space"]
 
   # Change the focused window to be floating.
-  - commands: ["toggle-floating --centered"]
-    bindings: ["alt+shift+space"]
+  # - commands: ["toggle-floating --centered"]
+  #   bindings: ["alt+shift+space"]
 
   # Change the focused window to be tiling.
   - commands: ["toggle-tiling"]

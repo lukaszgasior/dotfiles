@@ -29,6 +29,7 @@
     } from 'https://esm.sh/react@18?dev';
     import { createRoot } from 'https://esm.sh/react-dom@18/client?dev';
     import * as zebar from 'https://esm.sh/zebar@2';
+    import { checkAzureStatus } from './azure-status.js';
 
     const providers = zebar.createProviderGroup({
       network: { type: 'network' },
@@ -44,9 +45,20 @@
 
     function App() {
       const [output, setOutput] = useState(providers.outputMap);
+      const [azureStatus, setAzureStatus] = useState({ hasIssues: false });
 
       useEffect(() => {
         providers.onOutput(() => setOutput(providers.outputMap));
+      }, []);
+
+      useEffect(() => {
+        const updateStatus = async () => {
+          const status = await checkAzureStatus();
+          setAzureStatus(status);
+        };
+        updateStatus();
+        const interval = setInterval(updateStatus, 5 * 60 * 1000);
+        return () => clearInterval(interval);
       }, []);
 
       // Get icon to show for current network status.
@@ -144,7 +156,18 @@
             )}
           </div>
 
-          <div className="center">{output.date?.formatted}</div>
+          <div className="center">
+            <div>{output.date?.formatted}</div>
+            <div
+              className={`azure-status ${azureStatus.hasIssues ? 'has-issues' : ''} ${azureStatus.error ? 'error' : ''}`}
+              onClick={() => window.open('https://status.azure.com')}
+              title={azureStatus.issues?.map(issue =>
+                `${issue.title}\n${issue.category} - ${issue.region}\n${issue.description}`
+              ).join('\n\n') || 'Azure Status'}
+            >
+              Azure {azureStatus.hasIssues ? '⚠️' : '✅'}
+            </div>
+          </div>
 
           <div className="right">
             {output.glazewm && (
