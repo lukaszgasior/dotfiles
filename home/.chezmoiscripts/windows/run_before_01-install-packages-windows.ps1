@@ -1,3 +1,4 @@
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $chezmoiSourceDir = chezmoi source-path | Out-String
 $chezmoiSourceDir = $chezmoiSourceDir.Trim()
 $wingetExportPath = Join-Path $chezmoiSourceDir ".chezmoidata\winget-export.json"
