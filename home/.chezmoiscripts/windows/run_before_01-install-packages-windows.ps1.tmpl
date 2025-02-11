@@ -1,0 +1,4 @@
+{{ range .winget_packages }}
+    Write-Host "`nInstalling {{ . }}..."
+    winget install --id {{ . }} --silent -e --accept-source-agreements --accept-package-agreements
+{{ end }}

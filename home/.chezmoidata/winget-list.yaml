@@ -1,0 +1,19 @@
+winget_packages:
+  - 7zip.7zip
+  - BurntSushi.ripgrep.GNU
+  - junegunn.fzf
+  - Git.Git
+  - Gyan.FFmpeg
+  - Kubernetes.kubectl
+  - Mozilla.Firefox
+  - WinDirStat.WinDirStat
+  - GoLang.Go
+  - Microsoft.VisualStudioCode
+  - Neovim.Neovim
+  - Microsoft.WindowsTerminal
+  - Starship.Starship
+  - Bruno.Bruno
+  - Microsoft.PowerShell
+  - JGraph.Draw
+  - glzr-io.glazewm
+  - Microsoft.PowerToys
