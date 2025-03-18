@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if ! command -v sudo &> /dev/null; then
-  apt-get update && apt-get install -y sudo;
+if ! command -v sudo &>/dev/null; then
+  apt-get update && apt-get install -y sudo
 fi
 
 # Install some base packages
@@ -50,14 +50,6 @@ mkdir -p "$XDG_CONFIG_HOME"
 
 # set up git prompt
 curl -L https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh >"$HOME"/.git-prompt.sh
-
-# config links
-ln -sf "$PWD/.config-linux/.bashrc" "$HOME"/.bashrc
-ln -sf "$PWD/.config-linux/.bash_profile" "$HOME"/.bash_profile
-ln -sf "$PWD/.config-linux/.tmux.conf" "$HOME"/.tmux.conf
-ln -sf "$PWD/.config/home/.gitconfig" "$HOME"/.gitconfig
-ln -sf "$PWD/.config/home/.gitattributes" "$HOME"/.gitattributes
-ln -sf "$PWD/nvim" "$XDG_CONFIG_HOME"/nvim
 
 # fix issue with unicode support in nvim in tmux
 sudo locale-gen "en_US.UTF-8"
