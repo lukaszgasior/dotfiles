@@ -13,7 +13,8 @@ sudo apt-get install git ripgrep tmux --yes
 # Install neovim
 curl -LO https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.tar.gz
 sudo rm -rf /opt/nvim
-sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+sudo mkdir -p /opt/nvim
+sudo tar -C /opt/nvim --strip-components=1 -xzf nvim-linux-x86_64.tar.gz
 sudo rm nvim-linux-x86_64.tar.gz
 
 # Install lazygit
