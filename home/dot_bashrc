@@ -69,12 +69,37 @@ export LAB="$GHREPOS/homelab"
 
 # PATH
 export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-export PATH="$PATH:/opt/nvim/bin"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/go/bin"
-export PATH="$PATH:$HOME/bin"
+
+pathappend() {
+	declare arg
+	for arg in "$@"; do
+		test -d "$arg" || continue
+		PATH=${PATH//":$arg:"/:}
+		PATH=${PATH/#"$arg:"/}
+		PATH=${PATH/%":$arg"/}
+		export PATH="${PATH:+"$PATH:"}$arg"
+	done
+} && export -f pathappend
+
+pathprepend() {
+	for arg in "$@"; do
+		test -d "$arg" || continue
+		PATH=${PATH//:"$arg:"/:}
+		PATH=${PATH/#"$arg:"/}
+		PATH=${PATH/%":$arg"/}
+		export PATH="$arg${PATH:+":${PATH}"}"
+	done
+} && export -f pathprepend
+
+pathprepend \
+  "$GOPATH/bin" \
+  "/opt/nvim/bin" \
+  "/usr/local/go/bin" \
+  "$HOME/.local/bin" \
+  "$HOME/go/bin" \
+  "$HOME/bin" \
+  "$HOME/.local/scripts"
+
 export KUBECONFIG=~/.kube/config
 
 # ALIASES
