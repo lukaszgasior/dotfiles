@@ -2,6 +2,8 @@
 
 My personal dotfiles managed with [chezmoi](https://www.chezmoi.io/).
 
+![Logo](assets/screen.png)
+
 ## Quick Install
 
 On Windows, run in PowerShell:
@@ -29,3 +31,4 @@ This will:
 - windows terminal
 - starship prompt
 - GlazeWM and Zebar
+- Windows 11 debloat script
