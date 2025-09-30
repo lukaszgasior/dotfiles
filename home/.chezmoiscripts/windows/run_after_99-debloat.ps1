@@ -35,6 +35,14 @@ try {
         -DisableWidgets `
         -DisableCopilot `
         -DisableRecall `
+        -RemoveW11Outlook `
+        -DisableStartRecommended `
+        -DisableStartPhoneLink `
+        -DisableDesktopSpotlight `
+        -DisableMouseAcceleration `
+        -DisableStickyKeys `
+        -EnableDarkMode `
+        -DisableTransparency `
         -Silent
 }
 catch {
