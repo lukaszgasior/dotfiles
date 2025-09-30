@@ -42,7 +42,6 @@ try {
         -DisableMouseAcceleration `
         -DisableStickyKeys `
         -EnableDarkMode `
-        -DisableTransparency `
         -Silent
 }
 catch {
