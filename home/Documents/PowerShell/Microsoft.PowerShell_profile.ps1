@@ -1,39 +1,62 @@
-if ($PSStyle) {
-   $PSStyle.FileInfo.Directory = $PSStyle.FileInfo.Executable = $PSStyle.FileInfo.SymbolicLink = "`e[38;2;255;255;255m" 
-   $PSStyle.FileInfo.Extension.Clear()
-   $PSStyle.Formatting.TableHeader = ""
-   $PSStyle.Formatting.FormatAccent = ""
-}
+if ([Environment]::UserInteractive) {
 
-# configure starship
-Invoke-Expression (&starship init powershell)
-
-# PSReadLine config
-Set-PSReadLineOption -PredictionSource History
-Set-PSReadLineOption -PredictionViewStyle ListView
-
-Set-PSReadLineOption -AddToHistoryHandler {
-   param($line)
-   if ($line.StartsWith(' ')) {
-      return $false
+   if ($PSStyle) {
+      $PSStyle.FileInfo.Directory = "`e[38;2;255;255;255m"
+      $PSStyle.FileInfo.Executable = "`e[38;2;255;255;255m"
+      $PSStyle.FileInfo.SymbolicLink = "`e[38;2;255;255;255m"
+      $PSStyle.FileInfo.Extension.Clear()
+      $PSStyle.Formatting.TableHeader = ""
+      $PSStyle.Formatting.FormatAccent = ""
+      $PSStyle.Progress.View = 'Classic'
    }
-   return $true
+
+   if (Get-Command starship -ErrorAction SilentlyContinue) {
+      Invoke-Expression (&starship init powershell)
+   }
+
+   if (Get-Module -ListAvailable PSReadLine) {
+      Set-PSReadLineOption -PredictionSource History
+      Set-PSReadLineOption -PredictionViewStyle ListView
+      Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+      Set-PSReadLineOption -MaximumHistoryCount 10000
+
+      Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+      Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+      Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+      Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar
+      Set-PSReadLineKeyHandler -Chord 'Ctrl+w' -Function BackwardDeleteWord
+
+      Set-PSReadLineOption -AddToHistoryHandler {
+         param($line)
+         return -not $line.StartsWith(' ')
+      }
+
+      Set-PSReadLineOption -Colors @{
+         Command   = 'Cyan'
+         Parameter = 'DarkCyan'
+         String    = 'Green'
+         Operator  = 'DarkGray'
+      }
+   }
+
+   if (Get-Command kubectl -ErrorAction SilentlyContinue) {
+      kubectl completion powershell | Out-String | Invoke-Expression
+
+      Set-Alias -Name k -Value kubectl
+      Register-ArgumentCompleter -CommandName k -ScriptBlock $__kubectlCompleterBlock
+   }
 }
 
-# Aliases
-Set-Alias -Name vim -Value nvim
-Set-Alias -Name k -Value kubectl
+if (Get-Command nvim -ErrorAction SilentlyContinue) {
+   $env:EDITOR = 'nvim'
+   $env:VISUAL = 'nvim'
 
-# kubectl completion
-kubectl completion powershell | Out-String | Invoke-Expression
-Register-ArgumentCompleter -CommandName k -ScriptBlock $__kubectlCompleterBlock
+   Set-Alias -Name vim -Value nvim
+   Set-Alias -Name vi -Value nvim
+}
 
 function dotfiles { Set-Location "C:\tools\dotfiles\" }
 
-# . "$($env:DOTFILES)\.config\terminal\tf_aliasses.ps1"
-# . "$($env:DOTFILES)\.config\terminal\git_aliasses.ps1"
-
-# Custom functions
 function take {
    [CmdletBinding()]
    param(
@@ -49,15 +72,6 @@ function which ($command) {
    Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
 }
 
-function sudo() {
-   if ($args.Length -eq 1) {
-      start-process $args[0] -verb "runAs"
-   }
-   if ($args.Length -gt 1) {
-      start-process $args[0] -ArgumentList $args[1..$args.Length] -verb "runAs"
-   }
-}
-
-function grep {
-   $input | out-string -stream | select-string $args
+function Get-PublicIP {
+   (Invoke-RestMethod -Uri 'https://api.ipify.org?format=json').ip
 }
