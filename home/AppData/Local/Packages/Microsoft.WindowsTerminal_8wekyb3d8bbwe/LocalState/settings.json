@@ -18,20 +18,63 @@
         {
             "command": "find",
             "id": "User.find",
-            "keys": "ctrl+shift+f"
+            "keys": "ctrl+f"
+        },
+        {
+            "command": "toggleFocusMode",
+            "keys": "ctrl+shift+enter"
         },
         {
             "command": {
                 "action": "splitPane",
-                "split": "auto",
+                "split": "horizontal",
                 "splitMode": "duplicate"
             },
-            "id": "User.splitPane",
-            "keys": "alt+shift+d"
+            "keys": "alt+shift+minus"
         },
         {
-            "command": "toggleFocusMode",
-            "keys": "ctrl+shift+f"
+            "command": {
+                "action": "splitPane",
+                "split": "vertical",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+plus"
+        },
+        {
+            "command": "closePane",
+            "keys": "ctrl+shift+w"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "left"
+            },
+            "keys": "ctrl+alt+left"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "right"
+            },
+            "keys": "ctrl+alt+right"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "up"
+            },
+            "keys": "ctrl+alt+up"
+        },
+        {
+            "command": {
+                "action": "moveFocus",
+                "direction": "down"
+            },
+            "keys": "ctrl+alt+down"
+        },
+        {
+            "command": "togglePaneZoom",
+            "keys": "ctrl+shift+z"
         }
     ],
     "copyFormatting": "none",
@@ -44,6 +87,7 @@
     ],
     "profiles": {
         "defaults": {
+            "padding": "8, 8, 8, 8",
             "bellStyle": "window",
             "closeOnExit": "always",
             "colorScheme": "Gruvbox",
@@ -53,10 +97,14 @@
                 "size": 15,
                 "weight": "normal"
             },
-            "opacity": 50,
+            "opacity": 85,
             "scrollbarState": "hidden",
             "suppressApplicationTitle": false,
-            "useAcrylic": true
+            "useAcrylic": true,
+            "unfocusedAppearance": {
+                "opacity": 60
+            },
+            "historySize": 10000
         },
         "list": [
             {
@@ -134,14 +182,14 @@
             "brightRed": "#FB4934",
             "brightWhite": "#EBDBB2",
             "brightYellow": "#DABD2F",
-            "cursorColor": "#EBDBB2",
+            "cursorColor": "#FE8019",
             "cyan": "#689D6A",
             "foreground": "#EBDBB2",
             "green": "#98971A",
             "name": "Gruvbox",
             "purple": "#B16286",
             "red": "#CC241D",
-            "selectionBackground": "#32FFF6",
+            "selectionBackground": "#504945",
             "white": "#A89984",
             "yellow": "#D79921"
         }
