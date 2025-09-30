@@ -149,3 +149,15 @@ body,
 .azure-status.error {
   color: #ff6b6b;
 }
+
+.systray {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-right: 4px;
+}
+
+img.systray-icon {
+  width: 16px;
+}
