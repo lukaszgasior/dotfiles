@@ -1,8 +1,14 @@
 {{- $email := promptString "Email Address" -}}
 
+{{- $installTools := true -}}
+{{- if stdinIsATTY -}}
+{{-   $installTools = promptBoolOnce . "installTools" "Install winget packages?" -}}
+{{- end -}}
+
 [data]
     name = "Lukasz Gasior"
     email = {{ $email | quote }}
+    installTools = {{ $installTools }}
 
 {{ if eq .chezmoi.os "windows" }}
 [cd]
