@@ -14,6 +14,12 @@
   "workbench.layoutControl.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
   "workbench.colorTheme": "Gruvbox Dark Hard",
+  "workbench.startupEditor": "none",
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.highlightModifiedTabs": true,
+  "workbench.editor.limit.enabled": true,
+  "workbench.editor.limit.value": 12,
+  "workbench.editor.limit.perEditorGroup": true,
   // EDITOR
   "editor.fontFamily": "'UbuntuMono Nerd Font'",
   "editor.fontSize": 16,
@@ -27,7 +33,8 @@
   "editor.linkedEditing": true,
   "editor.mouseWheelZoom": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": "explicit"
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
   },
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
@@ -35,7 +42,12 @@
   "editor.cursorBlinking": "phase",
   "editor.smoothScrolling": true,
   "editor.stickyScroll.enabled": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.rulers": [],
   "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "files.autoSave": "off",
   // TERMINAL
   "terminal.integrated.mouseWheelZoom": true,
   "terminal.integrated.fontFamily": "'UbuntuMono Nerd Font'",
@@ -46,77 +58,303 @@
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.persistentSessionScrollback": 10000,
-  // LANGUAGE SPECIFIC
-  "python.languageServer": "Pylance",
-  "python.analysis.typeCheckingMode": "basic",
-  "python.analysis.inlayHints.functionReturnTypes": true,
-  "python.analysis.inlayHints.variableTypes": false,
-  "python.formatting.provider": "black",
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "python.testing.pytestEnabled": true,
-  "[terraform]": {
-    "editor.defaultFormatter": "hashicorp.terraform",
-    "editor.formatOnSave": false,
+  "terminal.integrated.defaultProfile.windows": "PowerShell",
+  "terminal.integrated.profiles.windows": {
+    "PowerShell": {
+      "source": "PowerShell",
+      "icon": "terminal-powershell"
+    },
+  },
+  // POWERSHELL
+  "powershell.codeFormatting.preset": "Allman",
+  "powershell.codeFormatting.alignPropertyValuePairs": true,
+  "powershell.codeFormatting.autoCorrectAliases": true,
+  "powershell.codeFormatting.useCorrectCasing": true,
+  "powershell.codeFormatting.trimWhitespaceAroundPipe": true,
+  "powershell.codeFormatting.useConstantStrings": true,
+  "powershell.scriptAnalysis.enable": true,
+  "powershell.integratedConsole.showOnStartup": false,
+  "[powershell]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-vscode.powershell",
+    "files.encoding": "utf8bom",
+    "files.trimTrailingWhitespace": true,
+    "editor.tabSize": 4,
+    "editor.wordWrap": "off"
+  },
+  // PYTHON - RUFF CONFIGURATION
+  "python.linting.enabled": false,
+  "python.linting.pylintEnabled": false,
+  "python.formatting.provider": "none",
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-      "source.formatAll.terraform": "explicit"
+      "source.fixAll.ruff": "explicit",
+      "source.organizeImports.ruff": "explicit"
     }
   },
+  "ruff.lineLength": 120,
+  "ruff.lint.enable": true,
+  "ruff.organizeImports": true,
+  "ruff.fixAll": true,
+  // Pylance
+  "python.languageServer": "Pylance",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": false,
+  "python.analysis.inlayHints.callArgumentNames": "partial",
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  // TERRAFORM
+  "[terraform]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.formatAll.terraform": "explicit"
+    },
+    "editor.tabSize": 2
+  },
+  "[terraform-vars]": {
+    "editor.defaultFormatter": "hashicorp.terraform",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "[hcl]": {
+    "editor.defaultFormatter": "hashicorp.hcl",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "terraform.languageServer.enable": true,
+  "terraform.codelens.referenceCount": true,
+  "terraform.validation.enableEnhancedValidation": true,
+  "terraform.experimentalFeatures.validateOnSave": true,
+  // JSON & JSONC
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true,
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.tabSize": 2
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.tabSize": 2
+  },
+  // YAML
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnSave": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.autoIndent": "advanced"
+  },
+  "yaml.format.enable": true,
+  "yaml.format.singleQuote": false,
+  "yaml.format.bracketSpacing": true,
+  "yaml.validate": true,
+  "yaml.customTags": [
+    "!Base64",
+    "!Cidr",
+    "!Ref",
+    "!GetAtt",
+    "!Sub",
+    "!Join",
+    "!FindInMap"
+  ],
+  // MARKDOWN
   "[markdown]": {
     "editor.wordWrap": "on",
     "editor.quickSuggestions": {
       "comments": "off",
       "strings": "off",
       "other": "off"
-    }
+    },
+    "files.trimTrailingWhitespace": false
   },
+  // GO
   "go.toolsManagement.autoUpdate": true,
-  // EXTENSIONS & TOOLS
-  "terraform.codelens.referenceCount": true,
-  "bicep.enableSurveys": false,
-  "gitlens.plusFeatures.enabled": false,
+  "go.useLanguageServer": true,
+  "go.lintOnSave": "workspace",
+  "[go]": {
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "explicit"
+    },
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false
+  },
+  // TOML
+  "[toml]": {
+    "editor.defaultFormatter": "tamasfe.even-better-toml",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  // ANSIBLE
+  "[ansible]": {
+    "editor.defaultFormatter": "redhat.ansible",
+    "editor.tabSize": 2
+  },
+  "ansible.validation.enabled": true,
+  "ansible.validation.lint.enabled": true,
+  // AZURE SPECIFIC
+  "azureResourceGroups.groupBy": "resourceType",
+  "azureFunctions.showProjectWarning": false,
+  "azureFunctions.projectRuntime": "~4",
+  "azureFunctions.projectLanguage": "Python",
+  // AZURE PIPELINES
+  "azure-pipelines.customSchemaFile": ".azure-pipelines/schema.json",
+  // GIT
+  "git.autofetch": false,
+  "git.confirmSync": true,
+  "git.enableSmartCommit": false,
+  "git.decorations.enabled": true,
+  "git.ignoreRebaseWarning": false,
+  // DIFF EDITOR
   "multiDiffEditor.experimental.enabled": true,
   "diffEditor.ignoreTrimWhitespace": true,
+  "diffEditor.renderSideBySide": true,
+  "diffEditor.wordWrap": "off",
+  // REMOTE SSH
+  "remote.SSH.remotePlatform": {
+    "default": "linux"
+  },
+  "remote.SSH.showLoginTerminal": true,
+  "remote.SSH.connectTimeout": 60,
+  // DEV CONTAINERS
   "dev.containers.executeInWSL": true,
+  // INDENT RAINBOW
   "indentRainbow.excludedLanguages": [
-    "terraform"
+    "terraform",
+    "hcl"
+  ],
+  "indentRainbow.indicatorStyle": "light",
+  "indentRainbow.lightIndicatorStyleLineWidth": 1,
+  "indentRainbow.colors": [
+    "rgba(255,255,64,0.07)",
+    "rgba(127,255,127,0.07)",
+    "rgba(255,127,255,0.07)",
+    "rgba(79,236,236,0.07)"
+  ],
+  // RAINBOW CSV
+  "rainbow_csv.enable_auto_csv_lint": true,
+  "rainbow_csv.csv_lint_detect_trailing_spaces": true,
+  // LOG FILE HIGHLIGHTER
+  "logFileHighlighter.customPatterns": [
+    {
+      "pattern": "ERROR",
+      "foreground": "#ff0000"
+    },
+    {
+      "pattern": "WARN",
+      "foreground": "#FFA500"
+    }
   ],
   // SPELLING
   "cSpell.enabledFileTypes": {
-    "*": true,
+    "*": true
   },
   "cSpell.allowCompoundWords": true,
+  "cSpell.language": "en,pl",
   "cSpell.userWords": [
+    "akscluster",
     "appgw",
+    "appsettings",
     "argocd",
     "autoscale",
     "azcore",
     "azopenai",
     "aztables",
+    "azuread",
+    "azurerm",
+    "bicep",
+    "chrony",
+    "cilium",
+    "cloudflare",
+    "dapr",
+    "frontdoor",
     "glassit",
     "hclparse",
+    "hlsearch",
+    "hugofy",
     "Ipam",
+    "istio",
+    "keyvault",
+    "kubectl",
+    "kubeconfig",
     "LASTEXITCODE",
+    "loganalytics",
     "mmdc",
+    "nftables",
+    "ngnix",
+    "OTBS",
     "powerline",
+    "psscriptanalyzer",
+    "pwsh",
+    "pycache",
+    "pylance",
+    "pytest",
     "qdrant",
+    "rbac",
+    "storageaccount",
     "tflog",
     "tfswitch",
+    "tfvars",
     "Trivy",
     "velero",
-    "vnet"
+    "vnet",
+    "vwan",
+    "workspaces",
+    "ztna"
   ],
+  // SEARCH & FILES
+  "search.exclude": {
+    "**/.terraform": true,
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true,
+    "**/.venv": true,
+    "**/venv": true,
+    "**/*.tfstate": true,
+    "**/*.tfstate.backup": true,
+    "**/.terraform.lock.hcl": false
+  },
+  "files.exclude": {
+    "**/.git": true,
+    "**/__pycache__": true,
+    "**/.pytest_cache": true,
+    "**/.ruff_cache": true
+  },
+  "files.watcherExclude": {
+    "**/.terraform/**": true,
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/__pycache__/**": true,
+    "**/.ruff_cache/**": true,
+    "**/.venv/**": true
+  },
+  "files.associations": {
+    "*.tfvars": "terraform",
+    "*.hcl": "hcl",
+    "*.ps1xml": "xml",
+    "*.psd1": "powershell",
+    "*.psm1": "powershell"
+  },
   // UI & NAVIGATION
   "breadcrumbs.enabled": false,
   "zenMode.hideLineNumbers": false,
-  // WORKBENCH - produktywność
-  "workbench.startupEditor": "none",
-  "workbench.editor.enablePreview": false,
-  "workbench.editor.highlightModifiedTabs": true,
-  // MISC
+  "explorer.confirmDelete": true,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.compactFolders": false,
+  // SECURITY & TELEMETRY
   "telemetry.telemetryLevel": "off",
-  "files.trimTrailingWhitespace": true,
-  "powershell.integratedConsole.showOnStartup": false,
+  "security.workspace.trust.untrustedFiles": "prompt",
+  "security.workspace.trust.enabled": true,
   // VIM
   "vim.easymotion": true,
   "vim.incsearch": true,
@@ -128,6 +366,55 @@
   "vim.handleKeys": {
     "<C-a>": false,
     "<C-b>": false,
-    "<C-f>": false
+    "<C-c>": false,
+    "<C-f>": false,
+    "<C-w>": false
   },
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "<leader>",
+        "t"
+      ],
+      "commands": [
+        "workbench.action.terminal.toggleTerminal"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "v"
+      ],
+      "commands": [
+        "workbench.action.splitEditorRight"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "s"
+      ],
+      "commands": [
+        "workbench.action.splitEditorDown"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        ","
+      ],
+      "commands": [
+        "workbench.action.showAllEditors"
+      ]
+    },
+    {
+      "before": [
+        "<leader>",
+        "e"
+      ],
+      "commands": [
+        "workbench.view.explorer"
+      ]
+    }
+  ],
 }
