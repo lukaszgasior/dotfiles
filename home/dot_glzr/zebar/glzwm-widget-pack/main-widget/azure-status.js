@@ -1,7 +1,12 @@
 export async function checkAzureStatus() {
     try {
-
-        const response = await fetch('http://localhost:8787/azure-status');
+        const response = await fetch(`http://localhost:8787/azure-status?t=${Date.now()}`, {
+            cache: 'no-store',
+            headers: {
+                'Cache-Control': 'no-cache',
+                'Pragma': 'no-cache'
+            }
+        });
         const text = await response.text();
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(text, "text/xml");

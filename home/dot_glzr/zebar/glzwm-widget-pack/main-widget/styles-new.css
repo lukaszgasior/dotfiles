@@ -343,3 +343,35 @@ img.systray-icon {
         transform: scale(0.95);
     }
 }
+
+.audio {
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+    background: rgba(80, 73, 69, 0.3);
+    border-radius: 6px;
+    border: 1px solid rgba(168, 153, 132, 0.1);
+    transition: all 0.2s ease;
+    height: 26px;
+    font-size: 13px;
+    gap: 6px;
+
+    &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+}
+
+.audio i {
+    /* color: var(--gruvbox-purple); */
+    margin-right: 0;
+}
+
+.audio .muted {
+    color: var(--gruvbox-red);
+    font-weight: bold;
+}
+
+.audio i.nf-fa-microphone_slash {
+    color: var(--gruvbox-red);
+}

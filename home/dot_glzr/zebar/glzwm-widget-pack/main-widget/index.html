@@ -20,6 +20,7 @@
 
     const providers = zebar.createProviderGroup({
       network: { type: 'network' },
+      audio: { type: 'audio' },
       glazewm: { type: 'glazewm' },
       cpu: { type: 'cpu' },
       date: { type: 'date', formatting: 'EEE d MMM T' },
@@ -41,7 +42,8 @@
         'email',
         'teams',
         'slack',
-        'discord'
+        'discord',
+        'microphone'
       ];
 
       useEffect(() => {
@@ -54,7 +56,7 @@
           setAzureStatus(status);
         };
         updateStatus();
-        const interval = setInterval(updateStatus, 5 * 60 * 1000);
+        const interval = setInterval(updateStatus, 1 * 60 * 1000);
         return () => clearInterval(interval);
       }, []);
 
@@ -183,6 +185,18 @@
                   }
                 ></button>
               </>
+            )}
+
+            {output.audio && (
+              <div
+                className="audio"
+                title={output.audio.defaultRecordingDevice?.name || 'No recording device'}
+              >
+                <i className={`nf ${output.audio.defaultRecordingDevice?.isMuted ? 'nf-fa-microphone_slash' : 'nf-fa-microphone'}`}></i>
+                <span className={output.audio.defaultRecordingDevice?.isMuted ? 'muted' : ''}>
+                  {Math.round(output.audio.defaultRecordingDevice?.volume || 0)}%
+                </span>
+              </div>
             )}
 
             {output.network && (
