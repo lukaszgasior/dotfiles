@@ -17,6 +17,7 @@
     import { createRoot } from 'https://esm.sh/react-dom@18/client?dev';
     import * as zebar from 'https://esm.sh/zebar@3.0';
     import { checkAzureStatus } from './azure-status.js';
+    import { checkDevOpsStatus } from './devops-status.js';
 
     const providers = zebar.createProviderGroup({
       network: { type: 'network' },
@@ -35,6 +36,7 @@
     function App() {
       const [output, setOutput] = useState(providers.outputMap);
       const [azureStatus, setAzureStatus] = useState({ hasIssues: false });
+      const [devOpsStatus, setDevOpsStatus] = useState({ hasIssues: false });
 
       const allowedSystrayIcons = [
         'eset',
@@ -54,6 +56,16 @@
         const updateStatus = async () => {
           const status = await checkAzureStatus();
           setAzureStatus(status);
+        };
+        updateStatus();
+        const interval = setInterval(updateStatus, 1 * 60 * 1000);
+        return () => clearInterval(interval);
+      }, []);
+
+      useEffect(() => {
+        const updateStatus = async () => {
+          const status = await checkDevOpsStatus();
+          setDevOpsStatus(status);
         };
         updateStatus();
         const interval = setInterval(updateStatus, 1 * 60 * 1000);
@@ -164,6 +176,15 @@
               ).join('\n\n') || 'Azure Status'}
             >
               Azure {azureStatus.hasIssues ? '⚠️' : '✅'}
+            </div>
+            <div
+              className={`azure-status ${devOpsStatus.hasIssues ? 'has-issues' : ''} ${devOpsStatus.error ? 'error' : ''}`}
+              onClick={() => window.open('https://status.dev.azure.com')}
+              title={devOpsStatus.issues?.map(issue =>
+                `${issue.title}\n${issue.description}\n${issue.pubDate}`
+              ).join('\n\n') || 'Azure DevOps Status'}
+            >
+              DevOps {devOpsStatus.hasIssues ? '⚠️' : '✅'}
             </div>
           </div>
           <div className="right">

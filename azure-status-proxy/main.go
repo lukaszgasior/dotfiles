@@ -13,8 +13,9 @@ import (
 )
 
 const (
-	AZURE_RSS = "https://azurestatuscdn.azureedge.net/en-us/status/feed/"
-	PORT      = ":8787"
+	AZURE_RSS        = "https://azurestatuscdn.azureedge.net/en-us/status/feed/"
+	AZURE_DEVOPS_RSS = "https://status.dev.azure.com/_rss"
+	PORT             = ":8787"
 )
 
 var (
@@ -67,29 +68,32 @@ func enableCors(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, Cache-Control, Pragma")
 }
 
-func handleRss(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
+func handleRss(rssURL string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		enableCors(&w)
 
-	if r.Method == "OPTIONS" {
-		return
-	}
+		if r.Method == "OPTIONS" {
+			return
+		}
 
-	resp, err := http.Get(AZURE_RSS)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer resp.Body.Close()
+		resp, err := http.Get(rssURL)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		defer resp.Body.Close()
 
-	w.Header().Set("Content-Type", "application/rss+xml")
+		w.Header().Set("Content-Type", "application/rss+xml")
 
-	if _, err := io.Copy(w, resp.Body); err != nil {
-		log.Printf("Error copying response: %v", err)
+		if _, err := io.Copy(w, resp.Body); err != nil {
+			log.Printf("Error copying response: %v", err)
+		}
 	}
 }
 
 func startProxyServer() {
-	http.HandleFunc("/azure-status", handleRss)
+	http.HandleFunc("/azure-status", handleRss(AZURE_RSS))
+	http.HandleFunc("/devops-status", handleRss(AZURE_DEVOPS_RSS))
 
 	if err := http.ListenAndServe(PORT, nil); err != nil {
 		log.Fatal(err)
