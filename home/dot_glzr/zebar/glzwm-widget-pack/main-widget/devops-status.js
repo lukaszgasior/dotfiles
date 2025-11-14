@@ -13,18 +13,25 @@ export async function checkDevOpsStatus() {
 
         const items = xmlDoc.getElementsByTagName('item');
         let status = {
-            hasIssues: items.length > 0,
+            hasIssues: false,
             issues: []
         };
 
         if (items.length > 0) {
             for (let i = 0; i < items.length; i++) {
                 const item = items[i];
-                status.issues.push({
-                    title: item.getElementsByTagName('title')[0]?.textContent || '',
-                    description: item.getElementsByTagName('description')[0]?.textContent || '',
-                    pubDate: item.getElementsByTagName('pubDate')[0]?.textContent || ''
-                });
+                const state = item.getElementsByTagNameNS('*', 'state')[0]?.textContent || '';
+
+                // Only consider issues that are not resolved
+                if (state !== 'Resolved') {
+                    status.hasIssues = true;
+                    status.issues.push({
+                        title: item.getElementsByTagName('title')[0]?.textContent || '',
+                        description: item.getElementsByTagName('description')[0]?.textContent || '',
+                        pubDate: item.getElementsByTagName('pubDate')[0]?.textContent || '',
+                        state: state
+                    });
+                }
             }
         }
 
