@@ -181,10 +181,10 @@
               className={`azure-status ${devOpsStatus.hasIssues ? 'has-issues' : ''} ${devOpsStatus.error ? 'error' : ''}`}
               onClick={() => window.open('https://status.dev.azure.com')}
               title={devOpsStatus.issues?.map(issue =>
-                `${issue.title} [${issue.state}]\n${issue.description}\n${issue.pubDate}`
+                `${issue.title} [${issue.state}]${issue.affectsEurope ? ' 🇪🇺' : ''}\n${issue.description}\n${issue.pubDate}`
               ).join('\n\n') || 'Azure DevOps Status'}
             >
-              DevOps {devOpsStatus.hasIssues ? '⚠️' : '✅'}
+              DevOps {devOpsStatus.hasIssues ? (devOpsStatus.issues?.some(issue => issue.affectsEurope) ? '⚠️⚠️' : '⚠️') : '✅'}
             </div>
           </div>
           <div className="right">

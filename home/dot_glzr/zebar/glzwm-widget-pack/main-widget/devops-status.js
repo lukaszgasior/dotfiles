@@ -24,12 +24,23 @@ export async function checkDevOpsStatus() {
 
                 // Only consider issues that are not resolved
                 if (state !== 'Resolved') {
+                    const geographies = item.getElementsByTagNameNS('*', 'geography');
+                    let affectsEurope = false;
+
+                    for (let j = 0; j < geographies.length; j++) {
+                        if (geographies[j].textContent === 'Europe') {
+                            affectsEurope = true;
+                            break;
+                        }
+                    }
+
                     status.hasIssues = true;
                     status.issues.push({
                         title: item.getElementsByTagName('title')[0]?.textContent || '',
                         description: item.getElementsByTagName('description')[0]?.textContent || '',
                         pubDate: item.getElementsByTagName('pubDate')[0]?.textContent || '',
-                        state: state
+                        state: state,
+                        affectsEurope: affectsEurope
                     });
                 }
             }
