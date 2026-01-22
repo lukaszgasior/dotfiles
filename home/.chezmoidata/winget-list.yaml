@@ -17,3 +17,5 @@ winget_packages:
   - JGraph.Draw
   - glzr-io.glazewm
   - Microsoft.PowerToys
+  - Obsidian.Obsidian
+  - Microsoft.PowerToys

@@ -1,7 +1,7 @@
 {{ if .installTools -}}
 {{ range .winget_packages }}
     Write-Host "`nInstalling {{ . }}..."
-    winget install --id {{ . }} --silent -e --accept-source-agreements --accept-package-agreements
+    winget install --id {{ . }} --silent -e --accept-source-agreements --accept-package-agreements --source winget
 {{ end }}
 {{- else -}}
 Write-Host "Skip winget tools (installTools = false)"
