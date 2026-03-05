@@ -19,7 +19,7 @@ This dotfiles repository provides a complete, reproducible development environme
 - 💻 **PowerShell Configuration** - Enhanced prompt with Starship, PSReadLine customizations, and productivity aliases
 - 🔧 **Development Tools** - Neovim (LazyVim), VS Code, Git, and language-specific setups
 - 🖋️ **Nerd Fonts** - Ubuntu Mono Nerd Font patched for powerline and icons
-- 🔵 **Azure Integration** - Custom Azure status proxy with system tray integration
+- 🔵 **Azure and Azure DevOps Integration** - Custom Azure and Azure DevOps status proxy with system tray integration
 - 📜 **Utility Scripts** - PowerShell automation scripts for common tasks
 
 ## 🚀 Quick Install
@@ -65,6 +65,7 @@ The installation script will:
 - **Window Manager** ([GlazeWM config](home/dot_glzr/glazewm/config.yaml))
   - Tiling window manager for Windows
   - Custom Zebar widget with Azure status integration
+  - Custom Zebar widget with Azure DevOps status integration
 
 - **Neovim** ([LazyVim config](home/dot_config/nvim/))
   - Full LazyVim distribution with custom plugins
