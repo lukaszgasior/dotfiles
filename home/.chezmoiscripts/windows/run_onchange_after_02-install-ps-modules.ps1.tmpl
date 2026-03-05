@@ -1,0 +1,40 @@
+{{ if .installTools -}}
+# ps_modules: {{ .ps_modules | toJson }}
+
+$useNewGet = [bool](Get-Command Install-PSResource -ErrorAction SilentlyContinue)
+Write-Host "Using Install-PSResource: $useNewGet"
+{{ range .ps_modules }}
+Write-Host "`n--- Module: {{ . }} ---"
+$isInstalled = [bool](Get-Module -ListAvailable -Name {{ . }})
+Write-Host "Already installed: $isInstalled"
+
+if (-not $isInstalled) {
+    Write-Host "Installing..."
+    try {
+        if ($useNewGet) {
+            Write-Host "Running: Install-PSResource -Name {{ . }} -Scope CurrentUser -TrustRepository"
+            Install-PSResource -Name {{ . }} -Scope CurrentUser -TrustRepository -ErrorAction Stop
+        } else {
+            Write-Host "Running: Install-Module -Name {{ . }} -Scope CurrentUser -Force -SkipPublisherCheck"
+            Install-Module -Name {{ . }} -Scope CurrentUser -Force -SkipPublisherCheck -ErrorAction Stop
+        }
+        Write-Host "Install command completed."
+    } catch {
+        Write-Warning "Primary install failed: $_"
+        Write-Host "Retrying with Install-Module..."
+        Install-Module -Name {{ . }} -Scope CurrentUser -Force -SkipPublisherCheck
+        Write-Host "Fallback install command completed."
+    }
+    $verified = [bool](Get-Module -ListAvailable -Name {{ . }})
+    if ($verified) {
+        Write-Host "SUCCESS: {{ . }} installed."
+    } else {
+        Write-Error "FAILED: {{ . }} could not be installed!"
+    }
+} else {
+    Write-Host "Skipping."
+}
+{{ end }}
+{{- else -}}
+Write-Host "Skip PS modules (installTools = false)!"
+{{- end }}

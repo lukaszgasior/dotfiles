@@ -1,0 +1,6 @@
+{{ if .installTools -}}
+Write-Host "`nInstalling remove-branches..."
+iex "& { $(Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/lukaszgasior/remove-branches/main/install.ps1' -UseBasicParsing) }"
+{{- else -}}
+Write-Host "Skip extra tools (installTools = false)"
+{{- end }}

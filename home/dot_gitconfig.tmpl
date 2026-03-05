@@ -2,11 +2,34 @@
 	name = {{ .name }}
 	email = {{ .email }}
 
+[core]
+	editor = nvim
+	autocrlf = true
+	whitespace = trailing-space,space-before-tab
+
 [push]
 	autoSetupRemote = true
+	followTags = true
+
+[merge]
+	conflictstyle = zdiff3
+
+[diff]
+	algorithm = histogram
+	colorMoved = default
 
 [status]
 	showUntrackedFiles = all
+
+[fetch]
+	prune = true
+	prunetags = true
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = -version:refname
 
 [include]
 	path = ~/.gitconfig.local

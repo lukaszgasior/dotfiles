@@ -13,7 +13,7 @@
   "workbench.activityBar.location": "bottom",
   "workbench.layoutControl.enabled": false,
   "workbench.iconTheme": "material-icon-theme",
-  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "workbench.colorTheme": "Gruvbox Dark Medium",
   "workbench.startupEditor": "none",
   "workbench.editor.enablePreview": false,
   "workbench.editor.highlightModifiedTabs": true,
@@ -27,7 +27,11 @@
   "editor.minimap.enabled": false,
   "editor.formatOnSaveMode": "file",
   "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.trimAutoWhitespace": true,
   "editor.renderWhitespace": "all",
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
   "editor.suggest.showStatusBar": true,
   "editor.suggest.insertMode": "replace",
   "editor.linkedEditing": true,
@@ -66,19 +70,17 @@
     },
   },
   // POWERSHELL
-  "powershell.codeFormatting.preset": "Allman",
-  "powershell.codeFormatting.alignPropertyValuePairs": true,
-  "powershell.codeFormatting.autoCorrectAliases": true,
-  "powershell.codeFormatting.useCorrectCasing": true,
+  "powershell.codeFormatting.preset": "OTBS",
+  "powershell.codeFormatting.pipelineIndentationStyle": "IncreaseIndentationForFirstPipeline",
   "powershell.codeFormatting.trimWhitespaceAroundPipe": true,
+  "powershell.codeFormatting.useCorrectCasing": true,
+  "powershell.codeFormatting.alignPropertyValuePairs": true,
   "powershell.codeFormatting.useConstantStrings": true,
   "powershell.scriptAnalysis.enable": true,
+  "powershell.scriptAnalysis.settingsPath": ".vscode/PSScriptAnalyzerSettings.psd1",
   "powershell.integratedConsole.showOnStartup": false,
   "[powershell]": {
-    "editor.formatOnSave": true,
     "editor.defaultFormatter": "ms-vscode.powershell",
-    "files.encoding": "utf8bom",
-    "files.trimTrailingWhitespace": true,
     "editor.tabSize": 4,
     "editor.wordWrap": "off"
   },
@@ -108,9 +110,11 @@
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   // TERRAFORM
+  "terraform.codelens.referenceCount": true,
+  "terraform.validation.enableEnhancedValidation": true,
+  "terraform.experimentalFeatures.validateOnSave": true,
   "[terraform]": {
     "editor.defaultFormatter": "hashicorp.terraform",
-    "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
       "source.formatAll.terraform": "explicit"
     },
@@ -118,18 +122,13 @@
   },
   "[terraform-vars]": {
     "editor.defaultFormatter": "hashicorp.terraform",
-    "editor.formatOnSave": true,
     "editor.tabSize": 2
   },
-  "[hcl]": {
-    "editor.defaultFormatter": "hashicorp.hcl",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2
+  // Bicep
+  "[bicep]": {
+    "editor.defaultFormatter": "ms-azuretools.vscode-bicep",
+    "editor.tabSize": 2,
   },
-  "terraform.languageServer.enable": true,
-  "terraform.codelens.referenceCount": true,
-  "terraform.validation.enableEnhancedValidation": true,
-  "terraform.experimentalFeatures.validateOnSave": true,
   // JSON & JSONC
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features",
@@ -146,24 +145,14 @@
   // YAML
   "[yaml]": {
     "editor.defaultFormatter": "redhat.vscode-yaml",
-    "editor.formatOnSave": true,
-    "editor.insertSpaces": true,
     "editor.tabSize": 2,
-    "editor.autoIndent": "advanced"
+    "editor.autoIndent": "advanced",
+    "editor.insertSpaces": true
   },
   "yaml.format.enable": true,
-  "yaml.format.singleQuote": false,
+  "yaml.format.singleQuote": true,
   "yaml.format.bracketSpacing": true,
   "yaml.validate": true,
-  "yaml.customTags": [
-    "!Base64",
-    "!Cidr",
-    "!Ref",
-    "!GetAtt",
-    "!Sub",
-    "!Join",
-    "!FindInMap"
-  ],
   // MARKDOWN
   "[markdown]": {
     "editor.wordWrap": "on",
@@ -340,6 +329,8 @@
   },
   "files.associations": {
     "*.tfvars": "terraform",
+    "*.tfstate": "json",
+    "*.bicepparam": "bicep",
     "*.hcl": "hcl",
     "*.ps1xml": "xml",
     "*.psd1": "powershell",

@@ -9,6 +9,7 @@ $git_branch\
 $git_status\
 $fill\
 $azure\
+${custom.azure_cloud}\
 $terraform\
 $docker_context\
 $golang\
@@ -60,6 +61,24 @@ symbol = "󰠅 "
 style = "fg:color_blue"
 format = "[$symbol$subscription]($style) "
 disabled = false
+
+{{ if eq .chezmoi.os "windows" -}}
+[custom.azure_cloud]
+command = 'findstr /C:"AzureChinaCloud" "%USERPROFILE%\.azure\config" >nul 2>&1 && echo CN'
+shell = ["cmd", "/C"]
+when = "true"
+format = '[$symbol$output ]($style)'
+symbol = "󰠅 "
+style = "bold fg:color_red"
+{{ else -}}
+[custom.azure_cloud]
+command = 'grep -q "AzureChinaCloud" ~/.azure/config 2>/dev/null && echo CN'
+shell = ["sh", "-c"]
+when = "true"
+format = '[$symbol$output ]($style)'
+symbol = "󰠅 "
+style = "bold fg:color_red"
+{{ end -}}
 
 [terraform]
 symbol = "󱁢 "

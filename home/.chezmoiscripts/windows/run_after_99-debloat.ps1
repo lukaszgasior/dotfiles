@@ -1,14 +1,14 @@
-if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
     if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-        Write-Host "Requesting administrator privileges..."
+        Write-Host 'Requesting administrator privileges...'
         $CommandLine = "-NoExit -File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
-        Start-Process -Wait -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
-        Exit
+        Start-Process -Wait -FilePath pwsh.exe -Verb Runas -ArgumentList $CommandLine
+        exit
     }
 }
 
-$toolsPath = Join-Path $env:USERPROFILE ".tools\Win11Debloat"
-$debloatScript = Join-Path $toolsPath "Win11Debloat.ps1"
+$toolsPath = Join-Path $env:USERPROFILE '.tools\Win11Debloat'
+$debloatScript = Join-Path $toolsPath 'Win11Debloat.ps1'
 
 if (-not (Test-Path $toolsPath)) {
     Write-Error "Directory $toolsPath does not exist!"
@@ -43,8 +43,7 @@ try {
         -DisableStickyKeys `
         -EnableDarkMode `
         -Silent
-}
-catch {
+} catch {
     Write-Error "Error occurred while running the script: $_"
     exit 1
 }

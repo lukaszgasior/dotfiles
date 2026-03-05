@@ -1,12 +1,14 @@
-if (-Not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
+$chezmoiSourceDir = if ($args[0]) { $args[0] } else { $env:CHEZMOI_SOURCE_DIR }
+
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
     if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
-        $CommandLine = "-NoExit -File `"" + $MyInvocation.MyCommand.Path + "`" " + $MyInvocation.UnboundArguments
-        Start-Process -Wait -FilePath PowerShell.exe -Verb Runas -ArgumentList $CommandLine
-        Exit
+        $CommandLine = "-NoExit -File `"" + $MyInvocation.MyCommand.Path + "`" `"" + $chezmoiSourceDir + "`""
+        Start-Process -Wait -FilePath pwsh.exe -Verb Runas -ArgumentList $CommandLine
+        exit
     }
 }
 
-Add-Type -TypeDefinition @"
+Add-Type -TypeDefinition @'
     using System;
     using System.Runtime.InteropServices;
 
@@ -17,21 +19,19 @@ Add-Type -TypeDefinition @"
         [DllImport("user32.dll")]
         public static extern int SendMessage(IntPtr hWnd, uint Msg, IntPtr wParam, IntPtr lParam);
     }
-"@
+'@
 
-$chezmoiSourceDir = chezmoi source-path | Out-String
-$chezmoiSourceDir = $chezmoiSourceDir.Trim()
 $chezmoiBaseDir = Split-Path -Parent $chezmoiSourceDir
 
-$fontSourcePath = Join-Path $chezmoiBaseDir "fonts\ubuntumono"
-$fontDestinationPath = (Join-Path $env:windir "Fonts")
+$fontSourcePath = Join-Path $chezmoiBaseDir 'fonts\ubuntumono'
+$fontDestinationPath = (Join-Path $env:windir 'Fonts')
 
 if (-not (Test-Path $fontSourcePath)) {
     Write-Error "Source directory $fontSourcePath does not exist!"
     exit 1
 }
 
-$fonts = Get-ChildItem -Path $fontSourcePath -Include "*.ttf", "*.otf" -Recurse
+$fonts = Get-ChildItem -Path $fontSourcePath -Include '*.ttf', '*.otf' -Recurse
 
 Write-Host "Found $($fonts.Count) font files to install..."
 
@@ -48,21 +48,20 @@ foreach ($font in $fonts) {
 
         $result = [FontInstaller]::AddFontResource($destPath)
         if ($result -eq 0) {
-            throw "AddFontResource failed"
+            throw 'AddFontResource failed'
         }
 
         $result = [FontInstaller]::SendMessage($HWND_BROADCAST, $WM_FONTCHANGE, [IntPtr]::Zero, [IntPtr]::Zero)
 
         $fontName = [System.IO.Path]::GetFileName($destPath)
-        New-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" -Name $font.Name -Value $fontName -Force | Out-Null
+        New-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts' -Name $font.Name -Value $fontName -Force | Out-Null
 
         Write-Host "Installed: $($font.Name)" -ForegroundColor Green
-    }
-    catch {
+    } catch {
         Write-Host "Error installing font $($font.Name): $($_.Exception.Message)" -ForegroundColor Red
     }
 }
 
 Write-Host "`nFont installation completed" -ForegroundColor Green
-Write-Host "Press any key to continue..."
+Write-Host 'Press any key to continue...'
 $null = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown')

@@ -13,4 +13,8 @@
 {{ if eq .chezmoi.os "windows" }}
 [cd]
     command = "pwsh"
+
+[interpreters.ps1]
+    command = "pwsh"
+    args = ["-NoLogo", "-NonInteractive", "-File"]
 {{ end }}

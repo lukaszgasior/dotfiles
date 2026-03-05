@@ -36,6 +36,9 @@ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stabl
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 rm -r kubectl
 
+# Install remove-branches
+curl -sSL https://raw.githubusercontent.com/lukaszgasior/remove-branches/main/install.sh | bash
+
 # Install pomo
 sudo curl -L https://github.com/rwxrob/pomo/releases/latest/download/pomo-linux-amd64 -o /usr/local/bin/pomo
 sudo chmod +x /usr/local/bin/pomo
@@ -45,12 +48,12 @@ pomo var set interval ""
 pomo var set prefix "🍅 "
 pomo var set prefixwarn "💢 "
 
+# Install starship
+curl -sS https://starship.rs/install.sh | sh -s -- --yes
+
 # Configure
 export XDG_CONFIG_HOME="$HOME"/.config
 mkdir -p "$XDG_CONFIG_HOME"
-
-# set up git prompt
-curl -L https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh >"$HOME"/.git-prompt.sh
 
 # fix issue with unicode support in nvim in tmux
 sudo locale-gen "en_US.UTF-8"

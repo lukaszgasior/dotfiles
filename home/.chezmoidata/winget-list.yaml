@@ -1,21 +1,30 @@
+ps_modules:
+  - Az.Tools.Predictor
+
 winget_packages:
-  - 7zip.7zip
-  - BurntSushi.ripgrep.GNU
-  - junegunn.fzf
-  - Git.Git
-  - Gyan.FFmpeg
-  - Kubernetes.kubectl
-  - Mozilla.Firefox
-  - WinDirStat.WinDirStat
-  - GoLang.Go
-  - Microsoft.VisualStudioCode
-  - Neovim.Neovim
+  # shell & terminal
+  - Microsoft.PowerShell
   - Microsoft.WindowsTerminal
   - Starship.Starship
-  - Bruno.Bruno
-  - Microsoft.PowerShell
-  - JGraph.Draw
+  - junegunn.fzf
+  - BurntSushi.ripgrep.GNU
+  # editors
+  - Microsoft.VisualStudioCode
+  - Neovim.Neovim
+  # azure
+  - Microsoft.AzureCLI
+  - Microsoft.Bicep
+  - Kubernetes.kubectl
+  # dev
+  - Git.Git
+  - GoLang.Go
+  - 7zip.7zip
+  - Gyan.FFmpeg
+  # desktop
   - glzr-io.glazewm
   - Microsoft.PowerToys
+  - Mozilla.Firefox
   - Obsidian.Obsidian
-  - Microsoft.PowerToys
+  - Bruno.Bruno
+  - JGraph.Draw
+  - WinDirStat.WinDirStat
