@@ -13,6 +13,7 @@ winget_packages:
   - Neovim.Neovim
   # azure
   - Microsoft.AzureCLI
+  - Microsoft.AzureDeveloperCLI
   - Microsoft.Bicep
   - Kubernetes.kubectl
   # dev

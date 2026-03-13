@@ -1,200 +1,191 @@
 {
-    "$help": "https://aka.ms/terminal-documentation",
-    "$schema": "https://aka.ms/terminal-profiles-schema",
-    "actions": [
-        {
-            "command": {
-                "action": "copy",
-                "singleLine": false
-            },
-            "id": "User.copy",
-            "keys": "ctrl+c"
-        },
-        {
-            "command": "paste",
-            "id": "User.paste",
-            "keys": "ctrl+v"
-        },
-        {
-            "command": "find",
-            "id": "User.find",
-            "keys": "ctrl+f"
-        },
-        {
-            "command": "toggleFocusMode",
-            "keys": "ctrl+shift+enter"
-        },
-        {
-            "command": {
-                "action": "splitPane",
-                "split": "horizontal",
-                "splitMode": "duplicate"
-            },
-            "keys": "alt+shift+minus"
-        },
-        {
-            "command": {
-                "action": "splitPane",
-                "split": "vertical",
-                "splitMode": "duplicate"
-            },
-            "keys": "alt+shift+plus"
-        },
-        {
-            "command": "closePane",
-            "keys": "ctrl+shift+w"
-        },
-        {
-            "command": {
-                "action": "moveFocus",
-                "direction": "left"
-            },
-            "keys": "ctrl+alt+left"
-        },
-        {
-            "command": {
-                "action": "moveFocus",
-                "direction": "right"
-            },
-            "keys": "ctrl+alt+right"
-        },
-        {
-            "command": {
-                "action": "moveFocus",
-                "direction": "up"
-            },
-            "keys": "ctrl+alt+up"
-        },
-        {
-            "command": {
-                "action": "moveFocus",
-                "direction": "down"
-            },
-            "keys": "ctrl+alt+down"
-        },
-        {
-            "command": "togglePaneZoom",
-            "keys": "ctrl+shift+z"
-        }
-    ],
-    "copyFormatting": "none",
-    "copyOnSelect": false,
-    "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-    "newTabMenu": [
-        {
-            "type": "remainingProfiles"
-        }
-    ],
-    "profiles": {
-        "defaults": {
-            "padding": "8, 8, 8, 8",
-            "bellStyle": "window",
-            "closeOnExit": "always",
-            "colorScheme": "Gruvbox",
-            "cursorShape": "filledBox",
-            "font": {
-                "face": "UbuntuMono Nerd Font",
-                "size": 15,
-                "weight": "normal"
-            },
-            "opacity": 85,
-            "scrollbarState": "hidden",
-            "suppressApplicationTitle": false,
-            "useAcrylic": true,
-            "unfocusedAppearance": {
-                "opacity": 60
-            },
-            "historySize": 10000
-        },
-        "list": [
-            {
-                "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
-                "hidden": false,
-                "name": "PowerShell",
-                "source": "Windows.Terminal.PowershellCore"
-            },
-            {
-                "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
-                "hidden": false,
-                "name": "Git Bash",
-                "source": "Git"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "hidden": true,
-                "name": "Windows PowerShell"
-            },
-            {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": true,
-                "name": "Command Prompt"
-            },
-            {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": true,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
-            },
-            {
-                "guid": "{6cd6161f-bfd1-539a-9fac-87111af555f6}",
-                "hidden": true,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{51696741-45c1-5961-a8a5-cb8d757e1ca1}",
-                "hidden": true,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{8ab8e6f6-35c6-5b46-8419-3e1568105476}",
-                "hidden": true,
-                "name": "podman-machine-default",
-                "source": "Windows.Terminal.Wsl"
-            },
-            {
-                "guid": "{fe182347-0025-506f-8dd5-7cacb33114b9}",
-                "hidden": true,
-                "name": "podman-net-usermode",
-                "source": "Windows.Terminal.Wsl"
-            }
-        ]
+  "$help": "https://aka.ms/terminal-documentation",
+  "$schema": "https://aka.ms/terminal-profiles-schema",
+  "actions": [
+    {
+      "command": {
+        "action": "copy",
+        "singleLine": false
+      },
+      "id": "User.copy"
     },
-    "schemes": [
-        {
-            "background": "#1A1A1A",
-            "black": "#504945",
-            "blue": "#458588",
-            "brightBlack": "#928374",
-            "brightBlue": "#83A598",
-            "brightCyan": "#8EC07C",
-            "brightGreen": "#B8BB26",
-            "brightPurple": "#D3869B",
-            "brightRed": "#FB4934",
-            "brightWhite": "#EBDBB2",
-            "brightYellow": "#DABD2F",
-            "cursorColor": "#FE8019",
-            "cyan": "#689D6A",
-            "foreground": "#EBDBB2",
-            "green": "#98971A",
-            "name": "Gruvbox",
-            "purple": "#B16286",
-            "red": "#CC241D",
-            "selectionBackground": "#504945",
-            "white": "#A89984",
-            "yellow": "#D79921"
-        }
-    ],
-    "theme": "dark",
-    "themes": [],
-    "useAcrylicInTabRow": true
+    {
+      "command": "find",
+      "id": "User.find"
+    },
+    {
+      "command": "paste",
+      "id": "User.paste"
+    }
+  ],
+  "copyFormatting": "none",
+  "copyOnSelect": false,
+  "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+  "keybindings": [
+    {
+      "id": "User.copy",
+      "keys": "ctrl+c"
+    },
+    {
+      "id": "Terminal.DuplicatePaneDown",
+      "keys": "alt+shift+minus"
+    },
+    {
+      "id": "Terminal.TogglePaneZoom",
+      "keys": "ctrl+shift+z"
+    },
+    {
+      "id": "User.paste",
+      "keys": "ctrl+v"
+    },
+    {
+      "id": "User.find",
+      "keys": "ctrl+shift+f"
+    },
+    {
+      "id": "Terminal.ClosePane",
+      "keys": "ctrl+shift+w"
+    },
+    {
+      "id": "Terminal.ToggleFocusMode",
+      "keys": "ctrl+shift+enter"
+    },
+    {
+      "id": "Terminal.DuplicatePaneRight",
+      "keys": "alt+shift+plus"
+    },
+    {
+      "id": "Terminal.MoveFocusLeft",
+      "keys": "ctrl+alt+left"
+    },
+    {
+      "id": "Terminal.MoveFocusRight",
+      "keys": "ctrl+alt+right"
+    },
+    {
+      "id": "Terminal.MoveFocusUp",
+      "keys": "ctrl+alt+up"
+    },
+    {
+      "id": "Terminal.MoveFocusDown",
+      "keys": "ctrl+alt+down"
+    }
+  ],
+  "newTabMenu": [
+    {
+      "type": "remainingProfiles"
+    }
+  ],
+  "profiles": {
+    "defaults": {
+      "bellStyle": "window",
+      "closeOnExit": "always",
+      "colorScheme": "Gruvbox",
+      "cursorShape": "filledBox",
+      "font": {
+        "face": "UbuntuMono Nerd Font",
+        "size": 15,
+        "weight": "normal"
+      },
+      "historySize": 10000,
+      "opacity": 85,
+      "padding": "8, 8, 8, 8",
+      "scrollbarState": "hidden",
+      "suppressApplicationTitle": false,
+      "unfocusedAppearance": {
+        "opacity": 60
+      },
+      "useAcrylic": true
+    },
+    "list": [
+      {
+        "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
+        "hidden": false,
+        "name": "PowerShell",
+        "source": "Windows.Terminal.PowershellCore"
+      },
+      {
+        "guid": "{2ece5bfe-50ed-5f3a-ab87-5cd4baafed2b}",
+        "hidden": false,
+        "name": "Git Bash",
+        "source": "Git"
+      },
+      {
+        "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+        "hidden": false,
+        "name": "Ubuntu",
+        "source": "Windows.Terminal.Wsl"
+      },
+      {
+        "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+        "hidden": true,
+        "name": "Windows PowerShell"
+      },
+      {
+        "commandline": "%SystemRoot%\\System32\\cmd.exe",
+        "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+        "hidden": true,
+        "name": "Command Prompt"
+      },
+      {
+        "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
+        "hidden": true,
+        "name": "Azure Cloud Shell",
+        "source": "Windows.Terminal.Azure"
+      },
+      {
+        "guid": "{6cd6161f-bfd1-539a-9fac-87111af555f6}",
+        "hidden": true,
+        "name": "Developer Command Prompt for VS 2022",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{51696741-45c1-5961-a8a5-cb8d757e1ca1}",
+        "hidden": true,
+        "name": "Developer PowerShell for VS 2022",
+        "source": "Windows.Terminal.VisualStudio"
+      },
+      {
+        "guid": "{ce77c588-2818-5319-884c-3b0327beb737}",
+        "hidden": false,
+        "name": "rancher-desktop",
+        "source": "Microsoft.WSL"
+      },
+      {
+        "guid": "{e8d40238-add7-562f-8b8a-a4fc18a63bce}",
+        "hidden": false,
+        "name": "rancher-desktop-data",
+        "source": "Microsoft.WSL"
+      }
+    ]
+  },
+  "schemes": [
+    {
+      "background": "#1A1A1A",
+      "black": "#504945",
+      "blue": "#458588",
+      "brightBlack": "#928374",
+      "brightBlue": "#83A598",
+      "brightCyan": "#8EC07C",
+      "brightGreen": "#B8BB26",
+      "brightPurple": "#D3869B",
+      "brightRed": "#FB4934",
+      "brightWhite": "#EBDBB2",
+      "brightYellow": "#DABD2F",
+      "cursorColor": "#FE8019",
+      "cyan": "#689D6A",
+      "foreground": "#EBDBB2",
+      "green": "#98971A",
+      "name": "Gruvbox",
+      "purple": "#B16286",
+      "red": "#CC241D",
+      "selectionBackground": "#504945",
+      "white": "#A89984",
+      "yellow": "#D79921"
+    }
+  ],
+  "theme": "dark",
+  "themes": [],
+  "useAcrylicInTabRow": true
 }

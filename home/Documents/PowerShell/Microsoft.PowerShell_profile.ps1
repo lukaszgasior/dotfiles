@@ -10,61 +10,72 @@ if ([Environment]::UserInteractive) {
         $PSStyle.Progress.View = 'Classic'
     }
 
-    if (Get-Command starship -ErrorAction SilentlyContinue) {
-        Invoke-Expression (&starship init powershell)
-    }
+    # if (Get-Command starship -ErrorAction SilentlyContinue) {
+    Invoke-Expression (&starship init powershell)
+    # }
 
-    if (Get-Module -ListAvailable PSReadLine) {
-        $azPredictorInstalled = if (Get-Command Get-InstalledPSResource -ErrorAction SilentlyContinue) {
-            [bool](Get-InstalledPSResource -Name Az.Tools.Predictor -ErrorAction SilentlyContinue)
-        } else {
-            [bool](Get-Module -ListAvailable Az.Tools.Predictor)
-        }
-        $predictionSource = if ($azPredictorInstalled) { 'HistoryAndPlugin' } else { 'History' }
-        Set-PSReadLineOption -PredictionSource $predictionSource
-        Set-PSReadLineOption -PredictionViewStyle ListView
-        Set-PSReadLineOption -HistorySearchCursorMovesToEnd
-        Set-PSReadLineOption -MaximumHistoryCount 10000
-        Set-PSReadLineOption -HistoryNoDuplicates
+    # if (Get-Module -ListAvailable PSReadLine) {
+    # $azPredictorInstalled = if (Get-Command Get-InstalledPSResource -ErrorAction SilentlyContinue) {
+    #     [bool](Get-InstalledPSResource -Name Az.Tools.Predictor -ErrorAction SilentlyContinue)
+    # } else {
+    #     [bool](Get-Module -ListAvailable Az.Tools.Predictor)
+    # }
+    # $predictionSource = if ($azPredictorInstalled) { 'HistoryAndPlugin' } else { 'History' }
+    # Set-PSReadLineOption -PredictionSource $predictionSource
+    Set-PSReadLineOption -PredictionSource 'HistoryAndPlugin'
+    Set-PSReadLineOption -PredictionViewStyle ListView
+    Set-PSReadLineOption -HistorySearchCursorMovesToEnd
+    Set-PSReadLineOption -MaximumHistoryCount 10000
+    Set-PSReadLineOption -HistoryNoDuplicates
 
-        Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
-        Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
-        Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
-        Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar
-        Set-PSReadLineKeyHandler -Chord 'Ctrl+w' -Function BackwardDeleteWord
-
-        Set-PSReadLineOption -AddToHistoryHandler {
-            param($line)
-            return -not $line.StartsWith(' ')
-        }
-
-        Set-PSReadLineOption -Colors @{
-            Command          = '#b8bb26'
-            Parameter        = '#83a598'
-            String           = '#d79921'
-            Operator         = '#fe8019'
-            Variable         = '#8ec07c'
-            Number           = '#d3869b'
-            Member           = '#fabd2f'
-            Type             = '#d65d0e'
-            Comment          = '#928374'
-            Keyword          = '#fb4934'
-            Error            = '#cc241d'
-            Selection        = '#504945'
-            InlinePrediction = '#665c54'
+    Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
+    Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+    Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
+    Set-PSReadLineKeyHandler -Chord 'Ctrl+d' -Function DeleteChar
+    Set-PSReadLineKeyHandler -Chord 'Ctrl+w' -Function BackwardDeleteWord
+    Set-PSReadLineKeyHandler -Chord 'Ctrl+f' -ScriptBlock {
+        $line = $null
+        $cursor = $null
+        [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+        $selected = (Get-Content (Get-PSReadLineOption).HistorySavePath | Select-Object -Unique | fzf --tac --prompt 'History > ' --height 40% --layout reverse --query $line)
+        if ($selected) {
+            [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+            [Microsoft.PowerShell.PSConsoleReadLine]::Insert($selected)
         }
     }
 
-    if ($azPredictorInstalled) {
-        Import-Module Az.Tools.Predictor
+    Set-PSReadLineOption -AddToHistoryHandler {
+        param($line)
+        return -not $line.StartsWith(' ')
     }
 
-    if (Get-Command kubectl -ErrorAction SilentlyContinue) {
-        kubectl completion powershell | Out-String | Invoke-Expression
-
-        Set-Alias -Name k -Value kubectl
-        Register-ArgumentCompleter -CommandName k -ScriptBlock $__kubectlCompleterBlock
+    Set-PSReadLineOption -Colors @{
+        Command          = '#b8bb26'
+        Parameter        = '#83a598'
+        String           = '#d79921'
+        Operator         = '#fe8019'
+        Variable         = '#8ec07c'
+        Number           = '#d3869b'
+        Member           = '#fabd2f'
+        Type             = '#d65d0e'
+        Comment          = '#928374'
+        Keyword          = '#fb4934'
+        Error            = '#cc241d'
+        Selection        = '#504945'
+        InlinePrediction = '#665c54'
     }
+    # }
+
+    # if ($azPredictorInstalled) {
+    #     Import-Module Az.Tools.Predictor
+    # }
+
+    # if (Get-Command kubectl -ErrorAction SilentlyContinue) {
+    #     kubectl completion powershell | Out-String | Invoke-Expression
+
+    #     Set-Alias -Name k -Value kubectl
+    #     Register-ArgumentCompleter -CommandName k -ScriptBlock $__kubectlCompleterBlock
+    # }
 }
 
 if (Get-Command nvim -ErrorAction SilentlyContinue) {
@@ -116,14 +127,14 @@ function Set-Project {
 function projects { Find-AndNavigate 'projects' }
 function github { Find-AndNavigate 'github' }
 function take($Path) { mkdir $Path | Out-Null; Set-Location $Path }
+function china { az cloud set --name AzureChinaCloud }
+function global { az cloud set --name AzureCloud }
+function winutil { irm 'https://christitus.com/win' | iex }
+function getip { (Invoke-RestMethod -Uri 'https://api.ipify.org?format=json').ip }
 
 function which ($command) {
     Get-Command -Name $command -ErrorAction SilentlyContinue |
         Select-Object -ExpandProperty Path -ErrorAction SilentlyContinue
-}
-
-function Get-PublicIP {
-    (Invoke-RestMethod -Uri 'https://api.ipify.org?format=json').ip
 }
 
 # AZURE

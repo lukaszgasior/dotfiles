@@ -64,9 +64,10 @@ disabled = false
 
 {{ if eq .chezmoi.os "windows" -}}
 [custom.azure_cloud]
-command = 'findstr /C:"AzureChinaCloud" "%USERPROFILE%\.azure\config" >nul 2>&1 && echo CN'
-shell = ["cmd", "/C"]
-when = "true"
+when = 'findstr AzureChinaCloud "%USERPROFILE%\.azure\config" >nul 2>&1'
+command = 'echo CN'
+shell = ["cmd.exe", "/C"]
+ignore_timeout = true
 format = '[$symbol$output ]($style)'
 symbol = "󰠅 "
 style = "bold fg:color_red"
