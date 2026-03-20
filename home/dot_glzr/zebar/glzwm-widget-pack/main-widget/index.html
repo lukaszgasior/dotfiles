@@ -184,22 +184,22 @@
               <span
                 className={`cloud-status-icon ${azureStatus.hasIssues ? 'has-issues' : ''} ${azureStatus.error ? 'error' : ''}`}
                 onClick={() => window.open('https://status.azure.com')}
-                title={azureStatus.issues?.map(issue =>
+                title={azureStatus.error ? 'Azure: Cannot connect to proxy' : azureStatus.issues?.map(issue =>
                   `${issue.title}\n${issue.category} - ${issue.region}\n${issue.description}`
                 ).join('\n\n') || 'Azure: OK'}
               >
                 󰠅
-                {azureStatus.hasIssues ? '⚠️' : ''}
+                {azureStatus.hasIssues && <i className="nf nf-fa-exclamation_triangle cloud-warning affects-eu"></i>}
               </span>
               <span
                 className={`cloud-status-icon ${devOpsStatus.hasIssues ? 'has-issues' : ''} ${devOpsStatus.error ? 'error' : ''}`}
                 onClick={() => window.open('https://status.dev.azure.com')}
-                title={devOpsStatus.issues?.map(issue =>
+                title={devOpsStatus.error ? 'Azure DevOps: Cannot connect to proxy' : devOpsStatus.issues?.map(issue =>
                   `${issue.title} [${issue.state}]${issue.affectsEurope ? ' 🇪🇺' : ''}\n${issue.description}\n${issue.pubDate}`
                 ).join('\n\n') || 'Azure DevOps: OK'}
               >
                 󰿕
-                {devOpsStatus.hasIssues ? (devOpsStatus.issues?.some(issue => issue.affectsEurope) ? '⚠️⚠️' : '⚠️') : ''}
+                {devOpsStatus.hasIssues && <i className={`nf nf-fa-exclamation_triangle cloud-warning ${devOpsStatus.issues?.some(issue => issue.affectsEurope) ? 'affects-eu' : ''}`}></i>}
               </span>
             </div>
           </div>

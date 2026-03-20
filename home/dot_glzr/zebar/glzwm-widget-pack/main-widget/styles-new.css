@@ -277,7 +277,7 @@ body,
 .cloud-status {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
 }
 
 .cloud-status-icon {
@@ -300,15 +300,28 @@ body,
     }
 
     &.has-issues {
-        color: var(--gruvbox-yellow);
+        color: var(--gruvbox-red);
 
         & i {
-            color: var(--gruvbox-yellow);
+            color: var(--gruvbox-red);
+        }
+    }
+
+    & .cloud-warning {
+        font-size: 14px;
+        margin-left: 12px;
+        margin-right: 0;
+        color: var(--gruvbox-yellow);
+        animation: pulse 1.5s ease-in-out infinite;
+
+        &.affects-eu {
+            color: var(--gruvbox-red);
         }
     }
 
     &.error {
         color: var(--gruvbox-red);
+        opacity: 0.6;
 
         & i {
             color: var(--gruvbox-red);
