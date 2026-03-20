@@ -64,8 +64,9 @@ The installation script will:
 
 - **Window Manager** ([GlazeWM config](home/dot_glzr/glazewm/config.yaml))
   - Tiling window manager for Windows
-  - Custom Zebar widget with Azure status integration
-  - Custom Zebar widget with Azure DevOps status integration
+  - Custom Zebar widget with Azure and Azure DevOps status monitoring
+  - Pomodoro timer with preset durations (15/25/45/60 min) and custom input
+  - CPU/RAM top processes tooltips on hover
 
 - **Neovim** ([LazyVim config](home/dot_config/nvim/))
   - Full LazyVim distribution with custom plugins
@@ -97,9 +98,9 @@ The installation script will:
 #### Azure Status Proxy ([azure-status-proxy/](azure-status-proxy/))
 
 A Go-based system tray application that:
-- Provides local CORS proxy for Azure Status RSS feed
-- Displays Azure status in system tray
-- Quick access to Azure Status page
+- Provides local CORS proxy for Azure and Azure DevOps status RSS feeds
+- Displays Azure status in system tray with quick access to status pages
+- Serves top process data (CPU/RAM) for Zebar tooltips via gopsutil
 - Integrates with Zebar widget for real-time status display
 
 ### Fonts

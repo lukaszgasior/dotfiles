@@ -395,3 +395,145 @@ img.systray-icon {
 .audio i.nf-fa-microphone_slash {
     color: var(--gruvbox-red);
 }
+
+/* Pomodoro timer */
+.pomodoro {
+    display: flex;
+    align-items: center;
+    padding: 5px 8px;
+    background: rgba(80, 73, 69, 0.3);
+    border-radius: 6px;
+    border: 1px solid rgba(168, 153, 132, 0.1);
+    transition: all 0.2s ease;
+    height: 26px;
+    font-size: 13px;
+    cursor: pointer;
+    gap: 6px;
+    user-select: none;
+}
+
+.pomodoro.idle {
+    opacity: 0.4;
+    padding: 5px 6px;
+
+    &:hover {
+        opacity: 0.7;
+        transform: translateY(-1px);
+    }
+}
+
+.pomodoro.setup {
+    gap: 6px;
+    cursor: default;
+}
+
+.pomo-icon {
+    font-size: 14px;
+    line-height: 1;
+}
+
+.pomo-presets {
+    display: flex;
+    gap: 3px;
+}
+
+.pomo-presets button {
+    background: rgba(131, 165, 152, 0.2);
+    color: var(--gruvbox-fg);
+    border: 1px solid rgba(131, 165, 152, 0.3);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+
+    &:hover {
+        background: rgba(131, 165, 152, 0.4);
+        border-color: rgba(131, 165, 152, 0.5);
+    }
+}
+
+.pomo-custom input {
+    width: 36px;
+    background: rgba(40, 40, 40, 0.8);
+    color: var(--gruvbox-fg);
+    border: 1px solid rgba(168, 153, 132, 0.3);
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-size: 11px;
+    font-family: inherit;
+    text-align: center;
+    outline: none;
+
+    &:focus {
+        border-color: var(--gruvbox-blue);
+    }
+
+    &::placeholder {
+        color: var(--gruvbox-gray);
+        opacity: 0.6;
+    }
+}
+
+/* Hide number input spinners */
+.pomo-custom input::-webkit-outer-spin-button,
+.pomo-custom input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.pomo-close {
+    background: none;
+    border: none;
+    color: var(--gruvbox-gray);
+    cursor: pointer;
+    font-size: 11px;
+    padding: 0 2px;
+    transition: color 0.15s ease;
+
+    &:hover {
+        color: var(--gruvbox-red);
+    }
+}
+
+.pomodoro.running,
+.pomodoro.paused {
+    color: var(--gruvbox-red);
+    border-color: rgba(251, 73, 52, 0.3);
+
+    &:hover {
+        background: rgba(251, 73, 52, 0.15);
+        transform: translateY(-1px);
+    }
+}
+
+.pomodoro.paused {
+    opacity: 0.6;
+}
+
+.pomodoro.running .pomo-icon,
+.pomodoro.paused .pomo-icon {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.pomodoro.warning .pomo-icon {
+    animation: pulse 0.5s ease-in-out infinite;
+}
+
+.pomo-timer {
+    font-family: 'UbuntuMono Nerd Font', monospace;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.pomodoro.ended {
+    color: var(--gruvbox-red);
+    border-color: rgba(251, 73, 52, 0.4);
+    animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}

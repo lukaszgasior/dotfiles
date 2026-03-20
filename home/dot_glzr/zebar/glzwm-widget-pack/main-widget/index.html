@@ -41,6 +41,36 @@
       const [topCpu, setTopCpu] = useState('');
       const [topMem, setTopMem] = useState('');
 
+      // Pomodoro state
+      const [pomoPhase, setPomoPhase] = useState('idle'); // idle | setup | running | paused | ended
+      const [pomoTimeLeft, setPomoTimeLeft] = useState(0);
+      const [pomoCustom, setPomoCustom] = useState('');
+
+      useEffect(() => {
+        if (pomoPhase !== 'running') return;
+        const interval = setInterval(() => {
+          setPomoTimeLeft(prev => {
+            if (prev <= 1) {
+              setPomoPhase('ended');
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+        return () => clearInterval(interval);
+      }, [pomoPhase]);
+
+      function pomoStart(minutes) {
+        setPomoTimeLeft(minutes * 60);
+        setPomoPhase('running');
+      }
+
+      function pomoFormat(seconds) {
+        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        return `${m}:${s}`;
+      }
+
       const allowedSystrayIcons = [
         'eset',
         'outlook',
@@ -177,8 +207,55 @@
                 ))}
               </div>
             )}
+
           </div>
           <div className="center">
+            {pomoPhase === 'idle' && (
+              <div className="pomodoro idle" onClick={() => setPomoPhase('setup')}>
+                🍅
+              </div>
+            )}
+
+            {pomoPhase === 'setup' && (
+              <div className="pomodoro setup">
+                <span className="pomo-icon">🍅</span>
+                <div className="pomo-presets">
+                  {[15, 25, 45, 60].map(m => (
+                    <button key={m} onClick={() => pomoStart(m)}>{m}</button>
+                  ))}
+                </div>
+                <form onSubmit={e => { e.preventDefault(); const v = parseInt(pomoCustom); if (v > 0) pomoStart(v); }}
+                  className="pomo-custom">
+                  <input
+                    type="number"
+                    min="1"
+                    max="240"
+                    placeholder="min"
+                    value={pomoCustom}
+                    onChange={e => setPomoCustom(e.target.value)}
+                  />
+                </form>
+                <button className="pomo-close" onClick={() => { setPomoPhase('idle'); setPomoCustom(''); }}>✕</button>
+              </div>
+            )}
+
+            {(pomoPhase === 'running' || pomoPhase === 'paused') && (
+              <div
+                className={`pomodoro ${pomoPhase} ${pomoTimeLeft <= 60 ? 'warning' : ''}`}
+                onClick={() => setPomoPhase(pomoPhase === 'running' ? 'paused' : 'running')}
+                onContextMenu={e => { e.preventDefault(); setPomoPhase('idle'); setPomoTimeLeft(0); }}
+              >
+                <span className="pomo-icon">🍅</span>
+                <span className="pomo-timer">{pomoFormat(pomoTimeLeft)}</span>
+              </div>
+            )}
+
+            {pomoPhase === 'ended' && (
+              <div className="pomodoro ended" onClick={() => { setPomoPhase('idle'); setPomoTimeLeft(0); }}>
+                <span className="pomo-icon">🍅</span>
+                <span className="pomo-timer">TIME END</span>
+              </div>
+            )}
             <div title={output.dateFull?.formatted}>{output.date?.formatted}</div>
             <div className="cloud-status">
               <span

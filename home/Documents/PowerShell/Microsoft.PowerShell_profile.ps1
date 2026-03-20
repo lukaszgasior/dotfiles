@@ -159,11 +159,13 @@ function Connect-AzureInteractive {
 
 Set-PSReadLineKeyHandler -Chord 'Alt+s' -ScriptBlock {
     Set-AzureSubscription
-    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 Set-PSReadLineKeyHandler -Chord 'Alt+g' -ScriptBlock {
     Set-Project
-    [Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+    [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+    [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
 }
 
 Set-Alias -Name azs -Value Set-AzureSubscription
