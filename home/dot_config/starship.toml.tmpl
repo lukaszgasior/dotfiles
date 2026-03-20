@@ -7,11 +7,14 @@ format = """
 $directory\
 $git_branch\
 $git_status\
+$git_metrics\
 $fill\
+$cmd_duration\
 $azure\
 ${custom.azure_cloud}\
 $terraform\
 $docker_context\
+$container\
 $golang\
 $nodejs\
 $python\
@@ -42,6 +45,7 @@ truncation_symbol = "…/"
 [git_branch]
 symbol = " "
 format = '[[$symbol$branch](bold fg:color_yellow)]($style) '
+ignore_bare_repo = true
 
 [git_status]
 format = '([[$all_status$ahead_behind](fg:color_orange) ]($style))'
@@ -107,7 +111,22 @@ format = '[[$symbol$version](fg:color_fg0)]($style) '
 
 [python]
 symbol = " "
-format = '[[$symbol$version](fg:color_yellow)]($style)[[(${virtualenv})](fg:color_orange) ]($style)'
+format = '[[$symbol$version( \(${virtualenv}\))](fg:color_yellow)]($style) '
+
+[git_metrics]
+disabled = false
+format = '([+$added]($added_style))( [-$deleted]($deleted_style)) '
+
+[cmd_duration]
+format = '[$duration](fg:color_aqua) '
+min_time = 2000
+
+[container]
+format = '[$symbol$name]($style) '
+
+[status]
+disabled = false
+format = '[$status](fg:color_red) '
 
 [fill]
 symbol = " "

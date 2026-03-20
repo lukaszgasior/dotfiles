@@ -132,21 +132,32 @@ body,
   top: 3px;
 }
 
-.azure-status {
-  width: 200px;
-  text-align: right;
-  cursor: pointer;
+.cloud-status {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 12px;
 }
 
-.azure-status:hover {
+.cloud-status-icon {
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.cloud-status-icon:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.azure-status.has-issues {
+.cloud-status-icon i {
+  margin-right: 0;
+}
+
+.cloud-status-icon.has-issues {
   color: #ffcc00;
 }
 
-.azure-status.error {
+.cloud-status-icon.error {
   color: #ff6b6b;
 }
 

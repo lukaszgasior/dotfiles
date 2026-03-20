@@ -7,8 +7,11 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"sort"
+	"strings"
 
 	"github.com/getlantern/systray"
+	"github.com/shirou/gopsutil/v4/process"
 	"github.com/skratchdot/open-golang/open"
 )
 
@@ -91,9 +94,88 @@ func handleRss(rssURL string) http.HandlerFunc {
 	}
 }
 
+type procInfo struct {
+	Name string
+	CPU  float64
+	Mem  uint64
+}
+
+func getTopProcesses(sortBy string) (string, error) {
+	procs, err := process.Processes()
+	if err != nil {
+		return "", err
+	}
+
+	grouped := make(map[string]*procInfo)
+	for _, p := range procs {
+		name, err := p.Name()
+		if err != nil || name == "" {
+			continue
+		}
+		cpu, _ := p.CPUPercent()
+		mem, err := p.MemoryInfo()
+		if err != nil || mem == nil {
+			continue
+		}
+		if g, ok := grouped[name]; ok {
+			g.CPU += cpu
+			g.Mem += mem.RSS
+		} else {
+			grouped[name] = &procInfo{Name: name, CPU: cpu, Mem: mem.RSS}
+		}
+	}
+
+	infos := make([]procInfo, 0, len(grouped))
+	for _, g := range grouped {
+		infos = append(infos, *g)
+	}
+
+	switch sortBy {
+	case "mem":
+		sort.Slice(infos, func(i, j int) bool { return infos[i].Mem > infos[j].Mem })
+	default:
+		sort.Slice(infos, func(i, j int) bool { return infos[i].CPU > infos[j].CPU })
+	}
+
+	limit := 5
+	if len(infos) < limit {
+		limit = len(infos)
+	}
+
+	var lines []string
+	for _, p := range infos[:limit] {
+		memMB := float64(p.Mem) / 1024 / 1024
+		if sortBy == "mem" {
+			lines = append(lines, fmt.Sprintf("%-20s %6.0f MB  %5.1f%% CPU", p.Name, memMB, p.CPU))
+		} else {
+			lines = append(lines, fmt.Sprintf("%-20s %5.1f%% CPU  %6.0f MB", p.Name, p.CPU, memMB))
+		}
+	}
+
+	return strings.Join(lines, "\n"), nil
+}
+
+func handleTopProcesses(w http.ResponseWriter, r *http.Request) {
+	enableCors(&w)
+	if r.Method == "OPTIONS" {
+		return
+	}
+
+	sortBy := r.URL.Query().Get("sort")
+	result, err := getTopProcesses(sortBy)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	fmt.Fprint(w, result)
+}
+
 func startProxyServer() {
 	http.HandleFunc("/azure-status", handleRss(AZURE_RSS))
 	http.HandleFunc("/devops-status", handleRss(AZURE_DEVOPS_RSS))
+	http.HandleFunc("/top-processes", handleTopProcesses)
 
 	if err := http.ListenAndServe(PORT, nil); err != nil {
 		log.Fatal(err)

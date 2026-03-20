@@ -24,7 +24,8 @@
       audio: { type: 'audio' },
       glazewm: { type: 'glazewm' },
       cpu: { type: 'cpu' },
-      date: { type: 'date', formatting: 'EEE d MMM T' },
+      date: { type: 'date', formatting: 'T' },
+      dateFull: { type: 'date', formatting: 'EEE d MMM yyyy' },
       battery: { type: 'battery' },
       memory: { type: 'memory' },
       weather: { type: 'weather', latitude: '51.127180', longitude: '16.963423' },
@@ -37,6 +38,8 @@
       const [output, setOutput] = useState(providers.outputMap);
       const [azureStatus, setAzureStatus] = useState({ hasIssues: false });
       const [devOpsStatus, setDevOpsStatus] = useState({ hasIssues: false });
+      const [topCpu, setTopCpu] = useState('');
+      const [topMem, setTopMem] = useState('');
 
       const allowedSystrayIcons = [
         'eset',
@@ -71,6 +74,15 @@
         const interval = setInterval(updateStatus, 1 * 60 * 1000);
         return () => clearInterval(interval);
       }, []);
+
+      async function fetchTopProcesses(sort) {
+        try {
+          const res = await fetch(`http://localhost:8787/top-processes?sort=${sort}&t=${Date.now()}`);
+          return await res.text();
+        } catch (e) {
+          return 'Error fetching processes';
+        }
+      }
 
       // Get icon to show for current network status.
       function getNetworkIcon(networkOutput) {
@@ -167,24 +179,28 @@
             )}
           </div>
           <div className="center">
-            <div>{output.date?.formatted}</div>
-            <div
-              className={`azure-status ${azureStatus.hasIssues ? 'has-issues' : ''} ${azureStatus.error ? 'error' : ''}`}
-              onClick={() => window.open('https://status.azure.com')}
-              title={azureStatus.issues?.map(issue =>
-                `${issue.title}\n${issue.category} - ${issue.region}\n${issue.description}`
-              ).join('\n\n') || 'Azure Status'}
-            >
-              Azure {azureStatus.hasIssues ? '⚠️' : '✅'}
-            </div>
-            <div
-              className={`azure-status ${devOpsStatus.hasIssues ? 'has-issues' : ''} ${devOpsStatus.error ? 'error' : ''}`}
-              onClick={() => window.open('https://status.dev.azure.com')}
-              title={devOpsStatus.issues?.map(issue =>
-                `${issue.title} [${issue.state}]${issue.affectsEurope ? ' 🇪🇺' : ''}\n${issue.description}\n${issue.pubDate}`
-              ).join('\n\n') || 'Azure DevOps Status'}
-            >
-              DevOps {devOpsStatus.hasIssues ? (devOpsStatus.issues?.some(issue => issue.affectsEurope) ? '⚠️⚠️' : '⚠️') : '✅'}
+            <div title={output.dateFull?.formatted}>{output.date?.formatted}</div>
+            <div className="cloud-status">
+              <span
+                className={`cloud-status-icon ${azureStatus.hasIssues ? 'has-issues' : ''} ${azureStatus.error ? 'error' : ''}`}
+                onClick={() => window.open('https://status.azure.com')}
+                title={azureStatus.issues?.map(issue =>
+                  `${issue.title}\n${issue.category} - ${issue.region}\n${issue.description}`
+                ).join('\n\n') || 'Azure: OK'}
+              >
+                󰠅
+                {azureStatus.hasIssues ? '⚠️' : ''}
+              </span>
+              <span
+                className={`cloud-status-icon ${devOpsStatus.hasIssues ? 'has-issues' : ''} ${devOpsStatus.error ? 'error' : ''}`}
+                onClick={() => window.open('https://status.dev.azure.com')}
+                title={devOpsStatus.issues?.map(issue =>
+                  `${issue.title} [${issue.state}]${issue.affectsEurope ? ' 🇪🇺' : ''}\n${issue.description}\n${issue.pubDate}`
+                ).join('\n\n') || 'Azure DevOps: OK'}
+              >
+                󰿕
+                {devOpsStatus.hasIssues ? (devOpsStatus.issues?.some(issue => issue.affectsEurope) ? '⚠️⚠️' : '⚠️') : ''}
+              </span>
             </div>
           </div>
           <div className="right">
@@ -210,13 +226,15 @@
 
             {output.audio && (
               <div
-                className="audio"
+                className={`audio ${output.audio.defaultRecordingDevice?.isMuted ? 'is-muted' : ''}`}
                 title={output.audio.defaultRecordingDevice?.name || 'No recording device'}
+                onClick={() => {
+                  const mic = output.audio.defaultRecordingDevice;
+                  if (mic) output.audio.setMute(!mic.isMuted, { deviceId: mic.deviceId });
+                }}
+                style={{ cursor: 'pointer' }}
               >
                 <i className={`nf ${output.audio.defaultRecordingDevice?.isMuted ? 'nf-fa-microphone_slash' : 'nf-fa-microphone'}`}></i>
-                <span className={output.audio.defaultRecordingDevice?.isMuted ? 'muted' : ''}>
-                  {Math.round(output.audio.defaultRecordingDevice?.volume || 0)}%
-                </span>
               </div>
             )}
 
@@ -228,14 +246,18 @@
             )}
 
             {output.memory && (
-              <div className="memory">
+              <div className="memory" title={topMem}
+                onMouseEnter={async () => setTopMem(await fetchTopProcesses('mem'))}
+              >
                 <i className="nf nf-fae-chip"></i>
                 {Math.round(output.memory.usage)}%
               </div>
             )}
 
             {output.cpu && (
-              <div className="cpu">
+              <div className="cpu" title={topCpu}
+                onMouseEnter={async () => setTopCpu(await fetchTopProcesses('cpu'))}
+              >
                 <i className="nf nf-oct-cpu"></i>
 
                 {/* Change the text color if the CPU usage is high. */}

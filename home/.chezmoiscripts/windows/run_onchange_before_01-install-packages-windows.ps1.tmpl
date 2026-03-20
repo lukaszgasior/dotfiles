@@ -1,3 +1,6 @@
+# weekly trigger — week number change causes chezmoi to detect new content
+# and re-run this onchange script approximately once per week
+# {{ now | date "2006-W01" }}
 {{ if .installTools -}}
 {{ range .winget_packages }}
     Write-Host "`nInstalling {{ . }}..."

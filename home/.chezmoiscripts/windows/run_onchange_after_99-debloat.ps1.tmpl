@@ -1,3 +1,7 @@
+# weekly trigger — week number change causes chezmoi to detect new content
+# and re-run this onchange script approximately once per week
+# {{ now | date "2006-W01" }}
+
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] 'Administrator')) {
     if ([int](Get-CimInstance -Class Win32_OperatingSystem | Select-Object -ExpandProperty BuildNumber) -ge 6000) {
         Write-Host 'Requesting administrator privileges...'
