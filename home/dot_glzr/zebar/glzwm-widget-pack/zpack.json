@@ -23,7 +23,12 @@
         "rules": []
       },
       "privileges": {
-        "shellCommands": []
+        "shellCommands": [
+          {
+            "program": "cmd",
+            "argsRegex": "/c start .+"
+          }
+        ]
       },
       "presets": [
         {

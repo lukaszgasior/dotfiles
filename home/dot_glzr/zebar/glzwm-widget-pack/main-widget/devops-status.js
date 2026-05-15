@@ -28,11 +28,13 @@ export async function checkDevOpsStatus() {
                     let affectsEurope = false;
 
                     for (let j = 0; j < geographies.length; j++) {
-                        if (geographies[j].textContent === 'Europe') {
+                        if (geographies[j].textContent.toLowerCase().includes('europe')) {
                             affectsEurope = true;
                             break;
                         }
                     }
+
+                    const geographyNames = Array.from(geographies).map(g => g.textContent).join(', ');
 
                     status.hasIssues = true;
                     status.issues.push({
@@ -40,6 +42,7 @@ export async function checkDevOpsStatus() {
                         description: item.getElementsByTagName('description')[0]?.textContent || '',
                         pubDate: item.getElementsByTagName('pubDate')[0]?.textContent || '',
                         state: state,
+                        geography: geographyNames,
                         affectsEurope: affectsEurope
                     });
                 }

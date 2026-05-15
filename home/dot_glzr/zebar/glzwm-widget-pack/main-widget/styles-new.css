@@ -195,6 +195,14 @@ body,
     &:active {
         transform: translateY(0);
     }
+
+    &.binding-mode-pause {
+        background: linear-gradient(135deg, rgba(215, 153, 33, 0.25), rgba(250, 189, 47, 0.25));
+        color: var(--gruvbox-yellow);
+        border-color: rgba(215, 153, 33, 0.5);
+        animation: pulse 1.5s ease-in-out infinite;
+        gap: 6px;
+    }
 }
 
 .network,
@@ -300,10 +308,18 @@ body,
     }
 
     &.has-issues {
-        color: var(--gruvbox-red);
+        color: var(--gruvbox-yellow);
 
         & i {
+            color: var(--gruvbox-yellow);
+        }
+
+        &.affects-eu {
             color: var(--gruvbox-red);
+
+            & i {
+                color: var(--gruvbox-red);
+            }
         }
     }
 
@@ -534,6 +550,13 @@ img.systray-icon {
 }
 
 @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.3;
+    }
 }
